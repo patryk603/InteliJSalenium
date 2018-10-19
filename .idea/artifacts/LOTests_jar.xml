@@ -2,7 +2,7 @@
   <artifact type="jar" name="LOTests:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/LOTests_jar</output-path>
     <root id="archive" name="LOTests.jar">
-      <element id="module-output" name="Quality Cloud" />
+      <element id="module-output" name="LoTests" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-client/9.4.7.v20170914/jetty-client-9.4.7.v20170914.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.7.9/byte-buddy-1.7.9.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/webbitserver/webbit/0.4.14/webbit-0.4.14.jar" path-in-jar="/" />
