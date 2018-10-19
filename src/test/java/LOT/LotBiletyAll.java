@@ -5,6 +5,7 @@ import Main.GetScreenshot;
 import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -130,8 +131,12 @@ public class LotBiletyAll extends MainTest{
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         System.out.println("Lokalizacja: "+localization+" | Lot z: " +from+ " | Lot do: "+to+" | Data wylotu: "+newDate+" | Data powrotu: "+newDate2+"  Start testu: "+start);
-        //Take screenshot
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("JSESSIONID: "+cookie.getValue());
+
+        //Take screenshot
         try {
             GetScreenshot.capture("HomePage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
@@ -348,6 +353,7 @@ public class LotBiletyAll extends MainTest{
             System.out.println("Problem with Continue button : " + e.getMessage());
         }
         //END OF TEST
+        driver.manage().deleteCookieNamed("JSESSIONID");
     }
 
     //Excel configuration

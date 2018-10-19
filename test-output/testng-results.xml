@@ -1,20 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
   <reporter-output>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\HomePage gr\enKTWWAW9.028.020181017_124007.jpg'> <img src='C:\LOTests\ErrorScreenshot\HomePage gr\enKTWWAW9.028.020181017_124007.jpg' height='400' width='600'/> </a><br>20181017_124007]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\FlightPage gr\enKTWWAW9.028.020181017_124019.jpg'> <img src='C:\LOTests\ErrorScreenshot\FlightPage gr\enKTWWAW9.028.020181017_124019.jpg' height='400' width='600'/> </a><br>20181017_124019]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PassengersPage gr\enKTWWAW9.028.020181017_124047.jpg'> <img src='C:\LOTests\ErrorScreenshot\PassengersPage gr\enKTWWAW9.028.020181017_124047.jpg' height='400' width='600'/> </a><br>20181017_124047]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\ExtraPage gr\enKTWWAW9.028.020181017_124121.jpg'> <img src='C:\LOTests\ErrorScreenshot\ExtraPage gr\enKTWWAW9.028.020181017_124121.jpg' height='400' width='600'/> </a><br>20181017_124121]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PaymentPage gr\enKTWWAW9.028.020181017_124130.jpg'> <img src='C:\LOTests\ErrorScreenshot\PaymentPage gr\enKTWWAW9.028.020181017_124130.jpg' height='400' width='600'/> </a><br>20181017_124130]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124136.jpg'> <img src='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124136.jpg' height='400' width='600'/> </a><br>20181017_124136]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\HomePage pl\plWAWKTW10.029.020181017_124142.jpg'> <img src='C:\LOTests\ErrorScreenshot\HomePage pl\plWAWKTW10.029.020181017_124142.jpg' height='400' width='600'/> </a><br>20181017_124142]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\FlightPage pl\plWAWKTW10.029.020181017_124154.jpg'> <img src='C:\LOTests\ErrorScreenshot\FlightPage pl\plWAWKTW10.029.020181017_124154.jpg' height='400' width='600'/> </a><br>20181017_124154]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PassengersPage pl\plWAWKTW10.029.020181017_124222.jpg'> <img src='C:\LOTests\ErrorScreenshot\PassengersPage pl\plWAWKTW10.029.020181017_124222.jpg' height='400' width='600'/> </a><br>20181017_124222]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\ExtraPage pl\plWAWKTW10.029.020181017_124244.jpg'> <img src='C:\LOTests\ErrorScreenshot\ExtraPage pl\plWAWKTW10.029.020181017_124244.jpg' height='400' width='600'/> </a><br>20181017_124244]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PaymentPage pl\plWAWKTW10.029.020181017_124248.jpg'> <img src='C:\LOTests\ErrorScreenshot\PaymentPage pl\plWAWKTW10.029.020181017_124248.jpg' height='400' width='600'/> </a><br>20181017_124248]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124252.jpg'> <img src='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124252.jpg' height='400' width='600'/> </a><br>20181017_124252]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\HomePage pl\enKTWWAW11.030.020181017_124258.jpg'> <img src='C:\LOTests\ErrorScreenshot\HomePage pl\enKTWWAW11.030.020181017_124258.jpg' height='400' width='600'/> </a><br>20181017_124258]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\FlightPage pl\enKTWWAW11.030.020181017_124308.jpg'> <img src='C:\LOTests\ErrorScreenshot\FlightPage pl\enKTWWAW11.030.020181017_124308.jpg' height='400' width='600'/> </a><br>20181017_124308]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PassengersPage pl\enKTWWAW11.030.020181017_124335.jpg'> <img src='C:\LOTests\ErrorScreenshot\PassengersPage pl\enKTWWAW11.030.020181017_124335.jpg' height='400' width='600'/> </a><br>20181017_124335]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\ExtraPage pl\enKTWWAW11.030.020181017_124358.jpg'> <img src='C:\LOTests\ErrorScreenshot\ExtraPage pl\enKTWWAW11.030.020181017_124358.jpg' height='400' width='600'/> </a><br>20181017_124358]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PaymentPage pl\enKTWWAW11.030.020181017_124403.jpg'> <img src='C:\LOTests\ErrorScreenshot\PaymentPage pl\enKTWWAW11.030.020181017_124403.jpg' height='400' width='600'/> </a><br>20181017_124403]]>
+    </line>
+    <line>
+      <![CDATA[<a href='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124406.jpg'> <img src='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124406.jpg' height='400' width='600'/> </a><br>20181017_124406]]>
+    </line>
   </reporter-output>
-  <suite started-at="2018-10-16T13:39:50Z" name="Default Suite" finished-at="2018-10-16T13:41:22Z" duration-ms="92052">
+  <suite started-at="2018-10-17T10:39:54Z" name="Default Suite" finished-at="2018-10-17T10:44:07Z" duration-ms="253281">
     <groups>
       <group name="BuyTickets">
-        <method signature="LotBiletyAllshortSauceLabsTEST.Test_BuyTickets(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" name="Test_BuyTickets" class="LOT.LotBiletyAllshortSauceLabsTEST"/>
+        <method signature="LotBiletyAll.Test_BuyTicketsEU(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAll@4a668b6e]" name="Test_BuyTicketsEU" class="LOT.LotBiletyAll"/>
       </group> <!-- BuyTickets -->
     </groups>
-    <test started-at="2018-10-16T13:39:50Z" name="LOTests" finished-at="2018-10-16T13:41:22Z" duration-ms="92052">
-      <class name="LOT.LotBiletyAllshortSauceLabsTEST">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:39:52Z" name="setUp" finished-at="2018-10-16T13:40:03Z" duration-ms="11008" status="PASS">
+    <test started-at="2018-10-17T10:39:54Z" name="LOTests" finished-at="2018-10-17T10:44:07Z" duration-ms="253281">
+      <class name="LOT.LotBiletyAll">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:LOT.LotBiletyAll@4a668b6e]" started-at="2018-10-17T10:39:54Z" name="setUp" finished-at="2018-10-17T10:39:57Z" duration-ms="3222" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="Test_BuyTickets(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:40:03Z" name="Test_BuyTickets" data-provider="data" finished-at="2018-10-16T13:40:18Z" duration-ms="15844" status="PASS">
+        <test-method signature="Test_BuyTicketsEU(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAll@4a668b6e]" started-at="2018-10-17T10:39:58Z" name="Test_BuyTicketsEU" data-provider="data" finished-at="2018-10-17T10:41:36Z" duration-ms="97774" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -43,24 +97,27 @@
             </param>
           </params>
           <reporter-output>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\HomePage gr\enKTWWAW9.028.020181017_124007.jpg'> <img src='C:\LOTests\ErrorScreenshot\HomePage gr\enKTWWAW9.028.020181017_124007.jpg' height='400' width='600'/> </a><br>20181017_124007]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\FlightPage gr\enKTWWAW9.028.020181017_124019.jpg'> <img src='C:\LOTests\ErrorScreenshot\FlightPage gr\enKTWWAW9.028.020181017_124019.jpg' height='400' width='600'/> </a><br>20181017_124019]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PassengersPage gr\enKTWWAW9.028.020181017_124047.jpg'> <img src='C:\LOTests\ErrorScreenshot\PassengersPage gr\enKTWWAW9.028.020181017_124047.jpg' height='400' width='600'/> </a><br>20181017_124047]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\ExtraPage gr\enKTWWAW9.028.020181017_124121.jpg'> <img src='C:\LOTests\ErrorScreenshot\ExtraPage gr\enKTWWAW9.028.020181017_124121.jpg' height='400' width='600'/> </a><br>20181017_124121]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PaymentPage gr\enKTWWAW9.028.020181017_124130.jpg'> <img src='C:\LOTests\ErrorScreenshot\PaymentPage gr\enKTWWAW9.028.020181017_124130.jpg' height='400' width='600'/> </a><br>20181017_124130]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124136.jpg'> <img src='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124136.jpg' height='400' width='600'/> </a><br>20181017_124136]]>
+            </line>
           </reporter-output>
-        </test-method> <!-- Test_BuyTickets -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:40:18Z" name="tearDown" finished-at="2018-10-16T13:40:19Z" duration-ms="879" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=Test_BuyTickets status=SUCCESS method=LotBiletyAllshortSauceLabsTEST.Test_BuyTickets(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:40:19Z" name="setUp" finished-at="2018-10-16T13:40:30Z" duration-ms="10552" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="Test_BuyTickets(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:40:30Z" name="Test_BuyTickets" data-provider="data" finished-at="2018-10-16T13:40:48Z" duration-ms="17804" status="PASS">
+        </test-method> <!-- Test_BuyTicketsEU -->
+        <test-method signature="Test_BuyTicketsEU(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAll@4a668b6e]" started-at="2018-10-17T10:41:36Z" name="Test_BuyTicketsEU" data-provider="data" finished-at="2018-10-17T10:42:51Z" duration-ms="75073" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -89,24 +146,27 @@
             </param>
           </params>
           <reporter-output>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\HomePage pl\plWAWKTW10.029.020181017_124142.jpg'> <img src='C:\LOTests\ErrorScreenshot\HomePage pl\plWAWKTW10.029.020181017_124142.jpg' height='400' width='600'/> </a><br>20181017_124142]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\FlightPage pl\plWAWKTW10.029.020181017_124154.jpg'> <img src='C:\LOTests\ErrorScreenshot\FlightPage pl\plWAWKTW10.029.020181017_124154.jpg' height='400' width='600'/> </a><br>20181017_124154]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PassengersPage pl\plWAWKTW10.029.020181017_124222.jpg'> <img src='C:\LOTests\ErrorScreenshot\PassengersPage pl\plWAWKTW10.029.020181017_124222.jpg' height='400' width='600'/> </a><br>20181017_124222]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\ExtraPage pl\plWAWKTW10.029.020181017_124244.jpg'> <img src='C:\LOTests\ErrorScreenshot\ExtraPage pl\plWAWKTW10.029.020181017_124244.jpg' height='400' width='600'/> </a><br>20181017_124244]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PaymentPage pl\plWAWKTW10.029.020181017_124248.jpg'> <img src='C:\LOTests\ErrorScreenshot\PaymentPage pl\plWAWKTW10.029.020181017_124248.jpg' height='400' width='600'/> </a><br>20181017_124248]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124252.jpg'> <img src='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124252.jpg' height='400' width='600'/> </a><br>20181017_124252]]>
+            </line>
           </reporter-output>
-        </test-method> <!-- Test_BuyTickets -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:40:48Z" name="tearDown" finished-at="2018-10-16T13:40:48Z" duration-ms="709" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=Test_BuyTickets status=SUCCESS method=LotBiletyAllshortSauceLabsTEST.Test_BuyTickets(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:40:48Z" name="setUp" finished-at="2018-10-16T13:40:59Z" duration-ms="10502" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="Test_BuyTickets(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:40:59Z" name="Test_BuyTickets" data-provider="data" finished-at="2018-10-16T13:41:21Z" duration-ms="22393" status="PASS">
+        </test-method> <!-- Test_BuyTicketsEU -->
+        <test-method signature="Test_BuyTicketsEU(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAll@4a668b6e]" started-at="2018-10-17T10:42:52Z" name="Test_BuyTicketsEU" data-provider="data" finished-at="2018-10-17T10:44:06Z" duration-ms="74122" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -135,20 +195,31 @@
             </param>
           </params>
           <reporter-output>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\HomePage pl\enKTWWAW11.030.020181017_124258.jpg'> <img src='C:\LOTests\ErrorScreenshot\HomePage pl\enKTWWAW11.030.020181017_124258.jpg' height='400' width='600'/> </a><br>20181017_124258]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\FlightPage pl\enKTWWAW11.030.020181017_124308.jpg'> <img src='C:\LOTests\ErrorScreenshot\FlightPage pl\enKTWWAW11.030.020181017_124308.jpg' height='400' width='600'/> </a><br>20181017_124308]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PassengersPage pl\enKTWWAW11.030.020181017_124335.jpg'> <img src='C:\LOTests\ErrorScreenshot\PassengersPage pl\enKTWWAW11.030.020181017_124335.jpg' height='400' width='600'/> </a><br>20181017_124335]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\ExtraPage pl\enKTWWAW11.030.020181017_124358.jpg'> <img src='C:\LOTests\ErrorScreenshot\ExtraPage pl\enKTWWAW11.030.020181017_124358.jpg' height='400' width='600'/> </a><br>20181017_124358]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\PaymentPage pl\enKTWWAW11.030.020181017_124403.jpg'> <img src='C:\LOTests\ErrorScreenshot\PaymentPage pl\enKTWWAW11.030.020181017_124403.jpg' height='400' width='600'/> </a><br>20181017_124403]]>
+            </line>
+            <line>
+              <![CDATA[<a href='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124406.jpg'> <img src='C:\LOTests\ErrorScreenshot\Test_BuyTicketsEU20181017_124406.jpg' height='400' width='600'/> </a><br>20181017_124406]]>
+            </line>
           </reporter-output>
-        </test-method> <!-- Test_BuyTickets -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a]" started-at="2018-10-16T13:41:21Z" name="tearDown" finished-at="2018-10-16T13:41:22Z" duration-ms="969" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=Test_BuyTickets status=SUCCESS method=LotBiletyAllshortSauceLabsTEST.Test_BuyTickets(java.lang.String, java.lang.String, java.lang.String, org.apache.poi.xssf.usermodel.XSSFCell, org.apache.poi.xssf.usermodel.XSSFCell)[pri:0, instance:LOT.LotBiletyAllshortSauceLabsTEST@61d6015a] output={null}]]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- Test_BuyTicketsEU -->
+        <test-method is-config="true" signature="tearDown1()[pri:0, instance:LOT.LotBiletyAll@4a668b6e]" started-at="2018-10-17T10:44:06Z" name="tearDown1" finished-at="2018-10-17T10:44:07Z" duration-ms="1141" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- LOT.LotBiletyAllshortSauceLabsTEST -->
+        </test-method> <!-- tearDown1 -->
+      </class> <!-- LOT.LotBiletyAll -->
     </test> <!-- LOTests -->
   </suite> <!-- Default Suite -->
 </testng-results>
