@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Pozdro Dla Ekipy IT:)">
+
+    <listeners>
+            <listener class-name="Main.LisinerTest"></listener>
+    </listeners>
+
+    <test name="LOTests">
+        <groups>
+            <run>
+                <include name="BuyTickets"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LOT.LotBiletyEU"/>
+        </classes>
+    </test> <!-- LOTests -->
+</suite> <!-- Default Suite -->

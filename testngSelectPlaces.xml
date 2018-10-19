@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+  <suite name="LotBiletyAllSelectPlaces" configfailurepolicy="continue">
+
+
+    <test name="LotBiletyAllSelectPlaces">
+        <groups>
+            <run>
+                <include name="BuyTickets"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LOT.LotBiletyAllSelectPlaces"/>
+        </classes>
+    </test> <!-- LOTests -->
+</suite> <!-- Default Suite -->

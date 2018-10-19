@@ -10,7 +10,7 @@
             </run>
         </groups>
         <classes>
-            <class name="Selenium.LotBiletyEUcopy"/>
+            <class name="LOT.LotBiletyEUcopy"/>
         </classes>
     </test> <!-- LOTests -->
 </suite> <!-- Default Suite -->

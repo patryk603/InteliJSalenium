@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+  <suite name="LotMMBFF" configfailurepolicy="continue">
+
+
+    <test name="LotMMBFF">
+        <groups>
+            <run>
+                <include name="MMB"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LOT.FireFox.LotMMBFF"/>
+        </classes>
+    </test> <!-- LOTests -->
+</suite> <!-- Default Suite -->

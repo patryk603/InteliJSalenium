@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Paczka1]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="SelectPlacesAndEquipmentAndBaggage(failed)">
+    <classes>
+      <class name="LOT.LotBiletyAllSelectPlacesAndEquipmentAndBaggage">
+        <methods>
+          <include name="tearDown2"/>
+          <include name="tearDown1"/>
+          <include name="Test_BuyTicketsUS"/>
+          <include name="Test_BuyTicketsHU"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- LOT.LotBiletyAllSelectPlacesAndEquipmentAndBaggage -->
+    </classes>
+  </test> <!-- SelectPlacesAndEquipmentAndBaggage(failed) -->
+  <test thread-count="5" name="BiletyAll(failed)">
+    <classes>
+      <class name="LOT.LotBiletyAll">
+        <methods>
+          <include name="tearDown2"/>
+          <include name="tearDown1"/>
+          <include name="Test_BuyTicketsUS"/>
+          <include name="Test_BuyTicketsHU"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- LOT.LotBiletyAll -->
+    </classes>
+  </test> <!-- BiletyAll(failed) -->
+  <test thread-count="5" name="Short(failed)">
+    <classes>
+      <class name="LOT.LotBiletyAllshort">
+        <methods>
+          <include name="Test_BuyTicketsHU"/>
+          <include name="Test_BuyTicketsUS"/>
+          <include name="setUp"/>
+          <include name="Test_BuyTicketsEU" invocation-numbers="0"/>
+          <include name="tearDown2"/>
+        </methods>
+      </class> <!-- LOT.LotBiletyAllshort -->
+    </classes>
+  </test> <!-- Short(failed) -->
+</suite> <!-- Failed suite [Paczka1] -->

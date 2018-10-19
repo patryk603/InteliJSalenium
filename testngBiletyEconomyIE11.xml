@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+  <suite name="BiletyEconomyIE11" configfailurepolicy="continue">
+
+
+    <test name="BiletyEconomyIE11">
+        <groups>
+            <run>
+                <include name="BuyTickets"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LOT.IE11.BiletyEconomyIE11"/>
+        </classes>
+    </test> <!-- LOTests -->
+</suite> <!-- Default Suite -->
