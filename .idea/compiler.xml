@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="LOTests" />
+        <module name="Quality Cloud" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="LOTests" target="8" />
+      <module name="Quality Cloud" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
