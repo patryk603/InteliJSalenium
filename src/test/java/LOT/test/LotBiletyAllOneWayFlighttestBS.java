@@ -1,30 +1,32 @@
-package LOT.IE11;
+package LOT.test;
 
 import DDT.ExcelDataConfig;
-import Main.GetScreenshot;
-import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import pageObjects.*;
 
-import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class LotBiletyAllSelectPlacesIE11 extends MainTest{
+import static Main.MainTest.ImplicitWait;
+
+//browserstack
+
+public class LotBiletyAllOneWayFlighttestBS {
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
@@ -47,13 +49,34 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
     String Year = String.valueOf(2020);
     //--------CreditCard
 
+    public static final String USERNAME = "kwas3";
+    public static final String AUTOMATE_KEY = "GhXy1yYsE7q4UyXAoksK";
+    public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+
+
 
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
-        driver = new InternetExplorerDriver();
-        driver.manage().deleteAllCookies();
-        driver.manage().window().maximize();
         baseUrl = "http://www.lot.com/";
+
+    }
+
+
+    @Test(dataProvider = "data",groups=("BuyTickets"))
+    public void Test_BuyTickets(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability("os", "Windows");
+        caps.setCapability("os_version", "10");
+        caps.setCapability("browser", "Chrome");
+        caps.setCapability("browser_version", "62.0");
+        caps.setCapability("resolution", "1920x1080");
+        caps.setCapability("browserstack.local", "false");
+        caps.setCapability("browserstack.selenium_version", "3.5.2");
+        caps.setCapability("browserstack.chrome.driver", "2.35");
+
+        WebDriver driver = new RemoteWebDriver(new URL(URL), caps);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         PageFactory.initElements(driver, HomePage.class);
@@ -61,13 +84,7 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
         PageFactory.initElements(driver, PassengersPage.class);
         PageFactory.initElements(driver, ExtrasPage.class);
         PageFactory.initElements(driver, PaymentPage.class);
-    }
 
-
-    @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void AllSelectPlacesIE11(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
-
-        WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
         ImplicitWait(driver);
 
@@ -133,12 +150,7 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         System.out.println("Lokalizacja: "+localization+" | Lot z: " +from+ " | Lot do: "+to+" | Data wylotu: "+newDate+" | Data powrotu: "+newDate2+"  Start testu: "+start);
-        //Take screenshot
-        try {
-            GetScreenshot.capture("HomePagePRE2 " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
@@ -146,7 +158,7 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromToText));
         HomePage.FromToText.sendKeys(from);
 
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+from+"]")).click();
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
         //Click on home page
 
         Thread.sleep(1000);
@@ -157,7 +169,7 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
             //HomePagePRE2.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
+            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
         } catch (Exception e) {
             System.out.println("Need additional click : " + e.getMessage());
             HomePage.Lot.click();
@@ -165,7 +177,7 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
             HomePage.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
+            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
         }
 
 
@@ -184,34 +196,27 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
         //Submit Button go from Home Page to Flight Page
         HomePage.Submit.submit();
 
-
         //FlightPage
         try {
             wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
         } catch (Exception e) {
-            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : "+ e.getMessage());
+            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : " + e.getMessage());
         }
 
         //Popup handle
         try {
-            wait.until(ExpectedConditions.visibilityOf(FlightsPage.OK));
             FlightsPage.OK.click();
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
-        //Take screenshot
-        try {
-            GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         //Selecting First ACTIVE Ticket TO
 
         try {
             FlightsPage.FirstTO.click();
         } catch (Exception e) {
-            System.out.println("Other tickets : "+ e.getMessage());
+            System.out.println("Other tickets : " + e.getMessage());
             FlightsPage.FirstTO1.click();
         }
 
@@ -220,7 +225,7 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
         try {
             FlightsPage.FirstBack.click();
         } catch (Exception e) {
-            System.out.println("Other tickets : "+ e.getMessage());
+            System.out.println("Other tickets : " + e.getMessage());
             FlightsPage.FirstBack2.click();
         }
         Thread.sleep(1000);
@@ -233,17 +238,12 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
             Thread.sleep(1000);
             FlightsPage.BigContinue.click();
             System.out.println("Accepted the alert successfully.");
-            System.out.println("No Element Continue : "+ e.getMessage());
+            System.out.println("No Element Continue : " + e.getMessage());
         }
         // Passengers Page
-        Thread.sleep(5000);
         //Take screenshot
         wait.until(ExpectedConditions.visibilityOf(PassengersPage.CheckboxAccept));
-        try {
-            GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
@@ -253,8 +253,8 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
         //Selecting title
 
         //Enter Name and Surname
-        PassengersPage.FirstNameIE11.sendKeys(name);
-        PassengersPage.SurnameIE11.sendKeys(surname);
+        PassengersPage.FirstName.sendKeys(name);
+        PassengersPage.Surname.sendKeys(surname);
 
         //DATE OF BIRTH
         try {
@@ -270,7 +270,7 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
             Select year = new Select(PassengersPage.YearOfBirth);
             year.selectByVisibleText(YearOfBirth);
         } catch (Exception e) {
-            System.out.println("Short haul : "+ e.getMessage());
+            System.out.println("Short haul : " + e.getMessage());
         }
         //DATE OF BIRTH
 
@@ -287,87 +287,25 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
         PassengersPage.BigContinue.click();
         try {
             PassengersPage.PopupAccept.click();
-        }catch (Exception e){
-            System.out.println("No Popup : "+ e.getMessage());
+        } catch (Exception e) {
+            System.out.println("No Popup : " + e.getMessage());
         }
-        Thread.sleep(10000);
+
         //Extra Page
-
-        //Selecting random seats TO destination
-        try {
-        List<WebElement> listings = driver.findElements(By.cssSelector(".nr-anc__seats__content__right>div>table>tbody>tr>th>table>tbody>tr>td[id*=\"flight_1_segment_1\"]:not([class*=\"disabled\"])"));
-        Random r = new Random();
-        int randomValue = r.nextInt(listings.size()); //Getting a random value that is between 0 and (list's size)-1
-        listings.get(randomValue).click(); //Clicking on the random item in the list.
-        //Click on add button
-        wait.until(ExpectedConditions.visibilityOf(ExtrasPage.AddSeatsButton));
-        ExtrasPage.AddSeatsButton.click();
-        } catch (Exception e) {
-           System.out.println("No Element additional TO : "+ e.getMessage());
-        }
-
-        //Try selecting additional TO
-        try {
-            List<WebElement> listings3 = driver.findElements(By.cssSelector(".nr-anc__seats__content__right>div>table>tbody>tr>th>table>tbody>tr>td[id*=\"flight_1_segment_2\"]:not([class*=\"disabled\"])"));
-            Random r3 = new Random();
-            int randomValue3 = r3.nextInt(listings3.size()); //Getting a random value that is between 0 and (list's size)-1
-            listings3.get(randomValue3).click(); //Clicking on the random item in the list.
-            //Click on add button
-            wait.until(ExpectedConditions.visibilityOf(ExtrasPage.AddSeatsButton));
-            ExtrasPage.AddSeatsButton.click();
-        } catch (Exception e) {
-            System.out.println("No Element additional TO : "+ e.getMessage());
-        }
-
-        //Selecting random seats BACK from destination
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(ExtrasPage.Flight2));
-            List<WebElement> listings2 = driver.findElements(By.cssSelector(".nr-anc__seats__content__right>div>table>tbody>tr>th>table>tbody>tr>td[id*=\"flight_2_segment_1\"]:not([class*=\"disabled\"])"));
-            Random r2 = new Random();
-            int randomValue2 = r2.nextInt(listings2.size()); //Getting a random value that is between 0 and (list's size)-1
-            listings2.get(randomValue2).click(); //Clicking on the random item in the list.
-            //Click on add button
-            wait.until(ExpectedConditions.elementToBeClickable(ExtrasPage.AddSeatsButton));
-            ExtrasPage.AddSeatsButton.click();
-        } catch (Exception e) {
-            System.out.println("No Element additional TO : "+ e.getMessage());
-        }
-
-        //Try selecting additional BACK
-        try {
-            List<WebElement> listings3 = driver.findElements(By.cssSelector(".nr-anc__seats__content__right>div>table>tbody>tr>th>table>tbody>tr>td[id*=\"flight_2_segment_2\"]:not([class*=\"disabled\"])"));
-            Random r3 = new Random();
-            int randomValue3 = r3.nextInt(listings3.size()); //Getting a random value that is between 0 and (list's size)-1
-            listings3.get(randomValue3).click(); //Clicking on the random item in the list.
-            //Click on add button
-            wait.until(ExpectedConditions.elementToBeClickable(ExtrasPage.AddSeatsButton));
-            ExtrasPage.AddSeatsButton.click();
-        } catch (Exception e) {
-            System.out.println("No Element additional BACK : "+ e.getMessage());
-        }
-
         //Take screenshot
-        try {
-            GetScreenshot.capture("ExtraPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        wait.until(ExpectedConditions.visibilityOf(ExtrasPage.Column1));
+
         //Waiting and Clicking on Big Continue Button.
         try {
             wait.until(ExpectedConditions.visibilityOf(ExtrasPage.BigContinue));
             ExtrasPage.BigContinue.click();
         } catch (Exception e) {
-            System.out.println("No Element Continue : "+ e.getMessage());
+            System.out.println("No Element Continue : " + e.getMessage());
         }
         //Extra Page
 
         //Payment Page
         wait.until(ExpectedConditions.visibilityOf(PaymentPage.BookNr));
-        try {
-            GetScreenshot.capture("PaymentPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         //BookingNumber
         String BookNumber = PaymentPage.BookNr.getText();
@@ -403,19 +341,16 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
             wait.until(ExpectedConditions.visibilityOf(PaymentPage.BigContinue));
             PaymentPage.BigContinue.click();
         } catch (Exception e) {
-            System.out.println("Problem with Continue button : "+ e.getMessage());
+            System.out.println("Problem with Continue button : " + e.getMessage());
         }
         //END OF TEST
-
-
-        //Excel configuration
     }
 
-
+    //Excel configuration
     @DataProvider(name ="data")
     public Object[][] passData()
     {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\SelectPlaces.xlsx");
+        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\LOT.xlsx");
         int rows = config.getRowCount(0);
         Object[][] data=new Object[rows][5];
 
@@ -427,12 +362,6 @@ public class LotBiletyAllSelectPlacesIE11 extends MainTest{
             data[i][4]=config.getNumber(0,i,4);
         }
         return data;
-    }
-
-    @AfterTest(alwaysRun = true)
-    public void tearDown1() throws Exception {
-        driver.manage().deleteAllCookies();
-        driver.quit();
     }
 
 

@@ -1,26 +1,44 @@
-package LOT.FireFox;
+package LOT.test;
 
 import DDT.ExcelDataConfig;
 import Main.GetScreenshot;
 import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.openqa.grid.web.Hub;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import pageObjects.*;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
+//browserstack
+import org.openqa.selenium.By;
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-public class LotBiletyAllshortFF extends MainTest{
+public class LotBiletyAllOneWayFlighttest{
+
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
@@ -43,29 +61,36 @@ public class LotBiletyAllshortFF extends MainTest{
     String Year = String.valueOf(2020);
     //--------CreditCard
 
+    public static final String USERNAME = "kwas3";
+    public static final String AUTOMATE_KEY = "GhXy1yYsE7q4UyXAoksK";
+    public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+
+
 
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
-        driver = new FirefoxDriver();
-        driver.manage().deleteAllCookies();
-        driver.manage().window().maximize();
+    }
+
+
+    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    public void Test_BuyTicketsEU(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
         baseUrl = "http://www.lot.com/";
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability("browser", "Chrome");
+        caps.setCapability("browser_version", "62.0");
+        caps.setCapability("os", "Windows");
+        caps.setCapability("os_version", "10");
+        caps.setCapability("resolution", "1024x768");
+        WebDriver driver = new RemoteWebDriver(new URL(URL), caps);
         PageFactory.initElements(driver, HomePage.class);
         PageFactory.initElements(driver, FlightsPage.class);
         PageFactory.initElements(driver, PassengersPage.class);
         PageFactory.initElements(driver, ExtrasPage.class);
         PageFactory.initElements(driver, PaymentPage.class);
-    }
 
-
-    @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void AllshortFF(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
-
-        WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
-        ImplicitWait(driver);
+
 
         //TIME Configuration
         String dat1 = String.valueOf(departuredata);
@@ -78,27 +103,21 @@ public class LotBiletyAllshortFF extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
-        //Data Formats
-        String eutime = "dd.MM.yyyy";
-        String hutime = "yy.MM.dd";
-        String ustime = "MM.dd.yyyy";
-
-        String actualtime;
-        if (localization.contains("us")) {
-            actualtime = ustime;
-        }   else if (localization.startsWith("hu/hu")) {
-            actualtime = hutime;
-        }   else {
-            actualtime = eutime;
-        }
+        /* Printing Data
+        System.out.println(departuredata);
+        System.out.println(returndata);
+        System.out.println(dat1);
+        System.out.println(dat2);
+        */
 
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+
+        // Printing Data
+        //System.out.println(timeStamp);
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
-
-
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -122,24 +141,18 @@ public class LotBiletyAllshortFF extends MainTest{
         String newDate2 = sdf.format(b.getTime());
 
         //Displaying the new Date after addition of Days
-        System.out.println("Data wylotu: " + newDate);
-        System.out.println("Data powrotu: " + newDate2);
+        //System.out.println("Date after Addition/ Departure: " + newDate);
+        //System.out.println("Date after Addition/ Return: " + newDate2);
         //TIME
 
         //TEST START
-        String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        System.out.println("Lokalizacja: "+localization+" | Lot z: " +from+ " | Lot do: "+to+" | Data wylotu: "+newDate+" | Data powrotu: "+newDate2+"  Start testu: "+start);
-        //Take screenshot
-        try {
-            GetScreenshot.capture("HomePagePRE2 " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        long start = System.currentTimeMillis();
+        System.out.println("Lokalizacja: "+localization+"Lot z: " +from+ "/Lot do: "+to+"Data wylotu: "+departuredata+"/Data powrotu: "+returndata+"  Start testu: "+start);
 
         //Selecting From Flight
-        wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
+
         HomePage.FromListButton.click();
-        wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromToText));
+
         HomePage.FromToText.sendKeys(from);
 
         driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+from+"]")).click();
@@ -149,17 +162,15 @@ public class LotBiletyAllshortFF extends MainTest{
 
         //Selecting To Flight
         try {
-            //wait.until(ExpectedConditions.elementToBeClickable(HomePagePRE2.ToList));
-            //HomePagePRE2.ToList.click();
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
+
             HomePage.ToToText.sendKeys(to);
             driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
         } catch (Exception e) {
             System.out.println("Need additional click : " + e.getMessage());
             HomePage.Lot.click();
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToList));
+
             HomePage.ToList.click();
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
+
             HomePage.ToToText.sendKeys(to);
             driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
         }
@@ -182,7 +193,7 @@ public class LotBiletyAllshortFF extends MainTest{
 
         //FlightPage
         try {
-            wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
+
         } catch (Exception e) {
             System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : "+ e.getMessage());
         }
@@ -193,12 +204,7 @@ public class LotBiletyAllshortFF extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
-        //Take screenshot
-        try {
-            GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         //Selecting First ACTIVE Ticket TO
 
@@ -208,8 +214,9 @@ public class LotBiletyAllshortFF extends MainTest{
             System.out.println("Other tickets : "+ e.getMessage());
             FlightsPage.FirstTO1.click();
         }
-    }
 
+        //Excel configuration
+    }
 
     @DataProvider(name ="dataEU")
     public Object[][] passDataEU()
@@ -227,43 +234,8 @@ public class LotBiletyAllshortFF extends MainTest{
         }
         return data;
     }
-    @DataProvider(name ="dataUS")
-    public Object[][] passDataUS()
-    {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\Short.xlsx");
-        int rows = config.getRowCount(1);
-        Object[][] data=new Object[rows][5];
+    //Excel configuration
 
-        for(int i=0;i<rows;i++){
-            data[i][0]=config.getData(1,i,0);
-            data[i][1]=config.getData(1,i,1);
-            data[i][2]=config.getData(1,i,2);
-            data[i][3]=config.getNumber(1,i,3);
-            data[i][4]=config.getNumber(1,i,4);
-        }
-        return data;
-    }
-    @DataProvider(name ="dataHU")
-    public Object[][] passDataHU()
-    {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\Short.xlsx");
-        int rows = config.getRowCount(2);
-        Object[][] data=new Object[rows][5];
 
-        for(int i=0;i<rows;i++){
-            data[i][0]=config.getData(2,i,0);
-            data[i][1]=config.getData(2,i,1);
-            data[i][2]=config.getData(2,i,2);
-            data[i][3]=config.getNumber(2,i,3);
-            data[i][4]=config.getNumber(2,i,4);
-        }
-        return data;
-    }
-
-    @AfterTest(alwaysRun = true)
-    public void tearDown1() throws Exception {
-        driver.manage().deleteAllCookies();
-        driver.quit();
-    }
 
 }

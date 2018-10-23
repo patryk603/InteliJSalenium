@@ -67,7 +67,7 @@ public class LotBiletyAllOneWayFlightIE11 extends MainTest{
 
 
     @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void Test_BuyTicketsEU(String localization, String from, String to, XSSFCell departuredata) throws Exception {
+    public void AllOneWayFlightIE11(String localization, String from, String to, XSSFCell departuredata) throws Exception {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);

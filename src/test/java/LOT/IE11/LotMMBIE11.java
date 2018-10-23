@@ -36,7 +36,7 @@ public class LotMMBIE11 extends MainTest {
 
 
     @Test(dataProvider = "data",groups=("MMB"))
-    public void MMB(String lastname, String bookinrexcel) throws Exception {
+    public void MMBIE11(String lastname, String bookinrexcel) throws Exception {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + "/pl/pl/moja-rezerwacja");

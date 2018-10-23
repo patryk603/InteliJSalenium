@@ -65,7 +65,7 @@ public class LotBiletyAllSelectPlacesFF extends MainTest{
 
 
     @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void Test_BuyTicketsEU(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+    public void AllSelectPlacesFF(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
