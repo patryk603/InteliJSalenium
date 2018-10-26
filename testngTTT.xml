@@ -6,7 +6,7 @@
     <test name="LotTTT">
         <groups>
             <run>
-                <include name="TTT"/>
+                <include name="BuyTickets"/>
             </run>
         </groups>
         <classes>
