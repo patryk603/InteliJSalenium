@@ -5,6 +5,7 @@ import Main.GetScreenshot;
 import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -132,9 +133,14 @@ public class LotBiletyAllSelectPlacesAndEquipmentAndBaggage extends MainTest{
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         System.out.println("Lokalizacja: "+localization+" | Lot z: " +from+ " | Lot do: "+to+" | Data wylotu: "+newDate+" | Data powrotu: "+newDate2+"  Start testu: "+start);
+
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Take screenshot
         try {
-            GetScreenshot.capture("HomePagePRE2 " + localization + from + to + departuredata + returndata);
+            GetScreenshot.capture("HomePage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,7 +151,7 @@ public class LotBiletyAllSelectPlacesAndEquipmentAndBaggage extends MainTest{
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromToText));
         HomePage.FromToText.sendKeys(from);
 
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+from+"]")).click();
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
         //Click on home page
 
         Thread.sleep(1000);
@@ -156,7 +162,7 @@ public class LotBiletyAllSelectPlacesAndEquipmentAndBaggage extends MainTest{
             //HomePagePRE2.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
+            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
         } catch (Exception e) {
             System.out.println("Need additional click : " + e.getMessage());
             HomePage.Lot.click();
@@ -164,7 +170,7 @@ public class LotBiletyAllSelectPlacesAndEquipmentAndBaggage extends MainTest{
             HomePage.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
+            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
         }
 
 
@@ -187,10 +193,8 @@ public class LotBiletyAllSelectPlacesAndEquipmentAndBaggage extends MainTest{
         try {
             wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
         } catch (Exception e) {
-            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : "+ e.getMessage());
+            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : " + e.getMessage());
         }
-
-
 
         //Popup handle
         try {
@@ -198,12 +202,17 @@ public class LotBiletyAllSelectPlacesAndEquipmentAndBaggage extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         //Selecting First ACTIVE Ticket TO
 

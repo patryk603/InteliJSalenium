@@ -134,7 +134,7 @@ public class LotBiletyAll extends MainTest{
 
         //JSESSION ID
         Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
-        System.out.println("JSESSIONID: "+cookie.getValue());
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
 
         //Take screenshot
         try {
@@ -200,6 +200,10 @@ public class LotBiletyAll extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);

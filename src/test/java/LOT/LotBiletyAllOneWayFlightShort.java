@@ -5,6 +5,7 @@ import Main.GetScreenshot;
 import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -139,6 +140,9 @@ public class LotBiletyAllOneWayFlightShort extends MainTest{
         //Click on home page
 
         Thread.sleep(1000);
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
 
         //Selecting To Flight
         try {
@@ -185,6 +189,11 @@ public class LotBiletyAllOneWayFlightShort extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata);

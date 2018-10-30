@@ -5,6 +5,7 @@ import Main.GetScreenshot;
 import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -122,6 +123,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -187,6 +192,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -430,6 +440,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -496,6 +510,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -758,6 +777,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -823,6 +846,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -1066,6 +1094,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -1136,6 +1168,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -1401,6 +1438,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -1467,6 +1508,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -1749,6 +1795,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -1819,6 +1869,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -2106,6 +2161,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -2171,6 +2230,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -2414,6 +2478,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -2484,6 +2552,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -2748,6 +2821,10 @@ public class LotMultiTickets extends MainTest{
             e.printStackTrace();
         }
 
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
@@ -2818,6 +2895,11 @@ public class LotMultiTickets extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
+
         //Take screenshot
         try {
             GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
@@ -3057,4 +3139,3 @@ public class LotMultiTickets extends MainTest{
 
 
 }
-
