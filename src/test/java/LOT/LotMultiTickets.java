@@ -67,7 +67,7 @@ public class LotMultiTickets extends MainTest{
 
 
 
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets2adults(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -85,11 +85,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -111,6 +127,11 @@ public class LotMultiTickets extends MainTest{
         //Date after adding the days to the given date
         String newDate = sdf.format(c.getTime());
         String newDate2 = sdf.format(b.getTime());
+
+        //Displaying the new Date after addition of Days
+        System.out.println("Data wylotu: " + newDate);
+        System.out.println("Data powrotu: " + newDate2);
+        //TIME
 
 
         //TEST START
@@ -384,8 +405,9 @@ public class LotMultiTickets extends MainTest{
         //END OF TEST
     }
 
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets3adults(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -402,11 +424,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -428,7 +466,6 @@ public class LotMultiTickets extends MainTest{
         //Date after adding the days to the given date
         String newDate = sdf.format(c.getTime());
         String newDate2 = sdf.format(b.getTime());
-
 
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -721,8 +758,9 @@ public class LotMultiTickets extends MainTest{
         //END OF TEST
     }
 
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets1adult1youth(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -739,11 +777,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -765,7 +819,6 @@ public class LotMultiTickets extends MainTest{
         //Date after adding the days to the given date
         String newDate = sdf.format(c.getTime());
         String newDate2 = sdf.format(b.getTime());
-
 
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -1038,8 +1091,10 @@ public class LotMultiTickets extends MainTest{
         //END OF TEST
     }
 
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets2adults1youth(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
+
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -1056,11 +1111,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -1382,8 +1453,10 @@ public class LotMultiTickets extends MainTest{
         //END OF TEST
     }
 
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets4adults(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
+
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -1400,11 +1473,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -1426,7 +1515,6 @@ public class LotMultiTickets extends MainTest{
         //Date after adding the days to the given date
         String newDate = sdf.format(c.getTime());
         String newDate2 = sdf.format(b.getTime());
-
 
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -1739,8 +1827,10 @@ public class LotMultiTickets extends MainTest{
         //END OF TEST
     }
 
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets2adults2youth(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
+
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -1757,11 +1847,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -1783,7 +1889,6 @@ public class LotMultiTickets extends MainTest{
         //Date after adding the days to the given date
         String newDate = sdf.format(c.getTime());
         String newDate2 = sdf.format(b.getTime());
-
 
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -2105,8 +2210,10 @@ public class LotMultiTickets extends MainTest{
     }
 
 
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets1adult1infant(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
+
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -2123,11 +2230,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -2149,7 +2272,6 @@ public class LotMultiTickets extends MainTest{
         //Date after adding the days to the given date
         String newDate = sdf.format(c.getTime());
         String newDate2 = sdf.format(b.getTime());
-
 
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -2422,8 +2544,10 @@ public class LotMultiTickets extends MainTest{
         //END OF TEST
     }
 
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets2adults1child(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
+
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -2440,11 +2564,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -2765,8 +2905,10 @@ public class LotMultiTickets extends MainTest{
         }
         //END OF TEST
     }
-    @Test(dataProvider = "dataEU",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Test_BuyTickets1adult2youth(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
+
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -2783,11 +2925,27 @@ public class LotMultiTickets extends MainTest{
             dat2 = dat2.substring(0, (dat2.length() - 2));
         }
 
+        //Data Formats
+        String eutime = "dd.MM.yyyy";
+        String hutime = "yy.MM.dd";
+        String ustime = "MM.dd.yyyy";
+
+        String actualtime;
+        if (localization.contains("us")) {
+            actualtime = ustime;
+        }   else if (localization.startsWith("hu/hu")) {
+            actualtime = hutime;
+        }   else {
+            actualtime = eutime;
+        }
+
         //Given Date in String format
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat(actualtime).format(Calendar.getInstance().getTime());
 
         //Specifying date format that matches the given date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(actualtime);
+
+
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
         try {
@@ -3109,10 +3267,11 @@ public class LotMultiTickets extends MainTest{
         //END OF TEST
     }
 
+
     //Excel configuration
 
-    @DataProvider(name ="dataEU")
-    public Object[][] passDataEU()
+    @DataProvider(name ="data")
+    public Object[][] passdata()
     {
         ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\MultiTickets.xlsx");
         int rows = config.getRowCount(0);
