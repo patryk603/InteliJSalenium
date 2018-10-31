@@ -60,10 +60,10 @@ public class Kasia extends MainTest{
 
 
     @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void Allshort(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+    public void Allshort(String market, String language, String departure_port, String arrival_port, XSSFCell departuredata, XSSFCell returndata) throws Exception {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
-        driver.get(baseUrl + localization);
+        driver.get(baseUrl + market + "/" + language);
         ImplicitWait(driver);
 
         //TIME Configuration
@@ -83,9 +83,9 @@ public class Kasia extends MainTest{
         String ustime = "MM.dd.yyyy";
 
         String actualtime;
-        if (localization.contains("us")) {
+        if (market.contains("us")) {
             actualtime = ustime;
-        }   else if (localization.startsWith("hu/hu")) {
+        }   else if (market.startsWith("hu/hu")) {
             actualtime = hutime;
         }   else {
             actualtime = eutime;
@@ -127,10 +127,10 @@ public class Kasia extends MainTest{
 
         //TEST START
         long start = System.currentTimeMillis();
-        System.out.println("Lokalizacja: "+localization+"Lot z: " +from+ "/Lot do: "+to+"Data wylotu: "+departuredata+"/Data powrotu: "+returndata+"  Start testu: "+start);
+        System.out.println("Lokalizacja: "+market+"/"+language+"Lot z: " +departure_port+ "/Lot do: "+arrival_port+"Data wylotu: "+departuredata+"/Data powrotu: "+returndata+"  Start testu: "+start);
         //Take screenshot
         try {
-            GetScreenshot.capture("HomePagePRE2 " + localization + from + to + departuredata + returndata);
+            GetScreenshot.capture("HomePagePRE2 " +market+"/"+language+ departure_port + arrival_port + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,9 +139,9 @@ public class Kasia extends MainTest{
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
         HomePage.FromListButton.click();
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromToText));
-        HomePage.FromToText.sendKeys(from);
+        HomePage.FromToText.sendKeys(departure_port);
 
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+from+"]")).click();
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+departure_port+"]")).click();
         //Click on home page
 
         Thread.sleep(1000);
@@ -152,8 +152,8 @@ public class Kasia extends MainTest{
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToList));
             HomePage.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
-            HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
+            HomePage.ToToText.sendKeys(arrival_port);
+            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+arrival_port+"]")).click();
 
 
 
@@ -187,31 +187,34 @@ public class Kasia extends MainTest{
         }
         //Take screenshot
         try {
-            GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
+            GetScreenshot.capture("FlightPage " +market+"/"+language+ departure_port + arrival_port + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }
         Thread.sleep(3000);
+
+
         //Data Layer
-        Object x = ((JavascriptExecutor) driver).executeScript("dataLayer[0][\"daysToDeparture\"]");
-        System.out.println("Data Layer : "+ x );
-        //Excel configuration
+        Object DLmarket = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"market\"]");
+        System.out.println("Data Layer : "+ DLmarket );
+
     }
 
 
     @DataProvider(name ="data")
     public Object[][] passData()
     {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\Short.xlsx");
+        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\kasia2.xlsx");
         int rows = config.getRowCount(0);
+        rows = rows-1;
         Object[][] data=new Object[rows][5];
 
         for(int i=0;i<rows;i++){
-            data[i][0]=config.getData(0,i,0);
-            data[i][1]=config.getData(0,i,1);
-            data[i][2]=config.getData(0,i,2);
-            data[i][3]=config.getNumber(0,i,3);
-            data[i][4]=config.getNumber(0,i,4);
+            data[i][0]=config.getData(0,i+1,0);
+            data[i][1]=config.getData(0,i+1,1);
+            data[i][2]=config.getData(0,i+1,2);
+            data[i][3]=config.getNumber(0,i+1,3);
+            data[i][4]=config.getNumber(0,i+1,4);
         }
         return data;
     }
