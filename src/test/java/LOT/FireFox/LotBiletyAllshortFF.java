@@ -210,9 +210,8 @@ public class LotBiletyAllshortFF extends MainTest{
         }
     }
 
-
-    @DataProvider(name ="dataEU")
-    public Object[][] passDataEU()
+    @DataProvider(name ="data")
+    public Object[][] passData()
     {
         ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\Short.xlsx");
         int rows = config.getRowCount(0);
@@ -224,38 +223,6 @@ public class LotBiletyAllshortFF extends MainTest{
             data[i][2]=config.getData(0,i,2);
             data[i][3]=config.getNumber(0,i,3);
             data[i][4]=config.getNumber(0,i,4);
-        }
-        return data;
-    }
-    @DataProvider(name ="dataUS")
-    public Object[][] passDataUS()
-    {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\Short.xlsx");
-        int rows = config.getRowCount(1);
-        Object[][] data=new Object[rows][5];
-
-        for(int i=0;i<rows;i++){
-            data[i][0]=config.getData(1,i,0);
-            data[i][1]=config.getData(1,i,1);
-            data[i][2]=config.getData(1,i,2);
-            data[i][3]=config.getNumber(1,i,3);
-            data[i][4]=config.getNumber(1,i,4);
-        }
-        return data;
-    }
-    @DataProvider(name ="dataHU")
-    public Object[][] passDataHU()
-    {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\Short.xlsx");
-        int rows = config.getRowCount(2);
-        Object[][] data=new Object[rows][5];
-
-        for(int i=0;i<rows;i++){
-            data[i][0]=config.getData(2,i,0);
-            data[i][1]=config.getData(2,i,1);
-            data[i][2]=config.getData(2,i,2);
-            data[i][3]=config.getNumber(2,i,3);
-            data[i][4]=config.getNumber(2,i,4);
         }
         return data;
     }
