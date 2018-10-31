@@ -10,7 +10,7 @@
             </run>
         </groups>
         <classes>
-            <class name="LOT.EDGE.BiletyPremiumEDGE"/>
+            <class name="LOT.EDGE.LotBiletyPremiumEDGE"/>
         </classes>
     </test> <!-- LOTests -->
 </suite> <!-- Default Suite -->

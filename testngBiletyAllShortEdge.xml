@@ -10,7 +10,7 @@
             </run>
         </groups>
         <classes>
-            <class name="LOT.EDGE.BiletyAllShortEdge"/>
+            <class name="LOT.EDGE.LotBiletyAllshortEDGE"/>
         </classes>
     </test> <!-- LOTests -->
 </suite> <!-- Default Suite -->

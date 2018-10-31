@@ -10,7 +10,7 @@
             </run>
         </groups>
         <classes>
-            <class name="LOT.FireFox.BiletyPremiumFF"/>
+            <class name="LOT.FireFox.LotBiletyPremiumFF"/>
         </classes>
     </test> <!-- LOTests -->
 </suite> <!-- Default Suite -->

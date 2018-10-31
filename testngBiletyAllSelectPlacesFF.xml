@@ -10,7 +10,7 @@
             </run>
         </groups>
         <classes>
-            <class name="LOT.EDGE.LotBiletyAllSelectPlacesFF"/>
+            <class name="LOT.FireFox.LotBiletyAllSelectPlacesFF"/>
         </classes>
     </test> <!-- LOTests -->
 </suite> <!-- Default Suite -->

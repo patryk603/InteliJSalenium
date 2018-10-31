@@ -10,7 +10,7 @@
             </run>
         </groups>
         <classes>
-            <class name="LOT.IE11.BiletyBusinessIE11"/>
+            <class name="LOT.IE11.LotBiletyBusinessIE11"/>
         </classes>
     </test> <!-- LOTests -->
 </suite> <!-- Default Suite -->
