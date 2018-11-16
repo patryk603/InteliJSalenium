@@ -69,8 +69,8 @@ public class Upsell extends MainTest{
 
 
     @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void LotAllTickets(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
-
+    public void Upsell(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+        driver.manage().deleteCookieNamed("last_booking_type");
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
         ImplicitWait(driver);

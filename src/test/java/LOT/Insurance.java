@@ -69,7 +69,7 @@ public class Insurance extends MainTest{
 
     @Test(dataProvider = "data",groups=("BuyTickets"))
     public void Insurance(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
-
+        driver.manage().deleteCookieNamed("last_booking_type");
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
         ImplicitWait(driver);
@@ -313,6 +313,7 @@ public class Insurance extends MainTest{
         //Insurance
         //Selecting random Insurance
         try {
+            System.out.println("No Insurance found for flight: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
             Assert.assertEquals(PassengersPage.InsuranceCheckbox.isDisplayed(),true);
         } catch (NoSuchElementException e) {
             Assert.fail("No Insurance found for flight: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
