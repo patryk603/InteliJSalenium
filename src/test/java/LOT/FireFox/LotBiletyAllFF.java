@@ -138,7 +138,7 @@ public class LotBiletyAllFF extends MainTest{
 
         //Take screenshot
         try {
-            GetScreenshot.capture("HomePagePRE2 " + localization + from + to + departuredata + returndata);
+            GetScreenshot.capture("HomePage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }

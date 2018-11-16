@@ -1,16 +1,20 @@
-package LOT.EDGE;
+package LOT;
 
 import DDT.ExcelDataConfig;
 import Main.GetScreenshot;
 import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
-import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -22,12 +26,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class LotBiletyAllOneWayFlightEDGE extends MainTest{
+public class Upsell extends MainTest{
     private String baseUrl;
-    private boolean acceptNextAlert = true;
-    private StringBuffer verificationErrors = new StringBuffer();
 
     //All Static Data
     String name = "Test";
@@ -50,14 +54,12 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
 
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
-        //DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
-        //caps.setCapability("ignoreZoomSetting", true);
-        driver = new EdgeDriver();
+        driver = new ChromeDriver();
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
         baseUrl = "http://www.lot.com/";
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
         PageFactory.initElements(driver, HomePage.class);
         PageFactory.initElements(driver, FlightsPage.class);
         PageFactory.initElements(driver, PassengersPage.class);
@@ -67,7 +69,7 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
 
 
     @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void AllOneWayFlightEDGE(String localization, String from, String to, XSSFCell departuredata) throws Exception {
+    public void LotAllTickets(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
@@ -79,6 +81,10 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
             dat1 = dat1.substring(0, (dat1.length() - 2));
         }
 
+        String dat2 = String.valueOf(returndata);
+        if (dat2.length() > 0) {
+            dat2 = dat2.substring(0, (dat2.length() - 2));
+        }
 
         //Data Formats
         String eutime = "dd.MM.yyyy";
@@ -86,12 +92,12 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         String ustime = "MM.dd.yyyy";
 
         String actualtime;
-        if (localization.contains("us")) {
-            actualtime = ustime;
+            if (localization.contains("us")) {
+                actualtime = ustime;
         }   else if (localization.startsWith("hu/hu")) {
-            actualtime = hutime;
+                actualtime = hutime;
         }   else {
-            actualtime = eutime;
+                actualtime = eutime;
         }
 
         //Given Date in String format
@@ -109,26 +115,36 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        try {
+            //Setting the date to the given date
+            b.setTime(sdf.parse(timeStamp));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         //Number of Days to add
         c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat1)));
-
+        b.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat2)));
 
         //Date after adding the days to the given date
         String newDate = sdf.format(c.getTime());
-
+        String newDate2 = sdf.format(b.getTime());
 
         //Displaying the new Date after addition of Days
         System.out.println("Data wylotu: " + newDate);
-
+        System.out.println("Data powrotu: " + newDate2);
         //TIME
 
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        System.out.println("Lokalizacja: "+localization+" | Lot z: " +from+ " | Lot do: "+to+" | Data wylotu: "+newDate+" | Start testu: "+start);
+        System.out.println("Lokalizacja: "+localization+" | Lot z: " +from+ " | Lot do: "+to+" | Data wylotu: "+newDate+" | Data powrotu: "+newDate2+"  Start testu: "+start);
+
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("HomePage JSESSIONID: "+cookie.getValue());
+
         //Take screenshot
         try {
-            GetScreenshot.capture("HomePage " + localization + from + to + departuredata);
+            GetScreenshot.capture("HomePage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,14 +155,14 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromToText));
         HomePage.FromToText.sendKeys(from);
 
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+from+"]")).click();
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
         //Click on home page
 
         Thread.sleep(1000);
 
         //Selecting To Flight
         try {
-            //wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToList));
+            //wait.until(ExpectedConditions.elementToBeClickable(HomePagePRE2.ToList));
             //HomePagePRE2.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
@@ -165,14 +181,27 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         //Click on home page
         HomePage.Lot.click();
 
-        //Selecting OneWayFlight
-        HomePage.OneWayFlight.click();
-
         //Selecting Departure Data
         HomePage.DepartureDate.clear();
         HomePage.DepartureDate.sendKeys(newDate);
-        HomePage.Lot.click();
 
+        //Data Config
+        int SL = (int) returndata.getNumericCellValue();
+
+        System.out.println("Stay length : " + SL);
+        if (SL == 0) {
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.OneWayFlight));
+            HomePage.OneWayFlight.click();
+            System.out.println("OW Flight ");
+
+        } else {
+            //Selecting Return Date
+            HomePage.ReturnDate.clear();
+            HomePage.ReturnDate.sendKeys(newDate2);
+            System.out.println("RT Flight ");
+        }
+
+        Thread.sleep(1000);
         //Submit Button go from Home Page to Flight Page
         HomePage.Submit.submit();
 
@@ -180,7 +209,7 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         try {
             wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
         } catch (Exception e) {
-            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : "+ e.getMessage());
+            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : " + e.getMessage());
         }
 
         //Popup handle
@@ -189,9 +218,13 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         } catch (Exception e) {
             System.out.println("Flight are available in that date : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
         //Take screenshot
         try {
-            GetScreenshot.capture("FlightPage " + localization + from + to + departuredata);
+            GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -201,10 +234,25 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         try {
             FlightsPage.FirstTO.click();
         } catch (Exception e) {
-            System.out.println("Other tickets : "+ e.getMessage());
+            System.out.println("Other tickets : " + e.getMessage());
             FlightsPage.FirstTO1.click();
         }
 
+
+        Thread.sleep(1000);
+        if (SL == 0) {
+            System.out.println("OW Flight ");
+        } else {
+            //Selecting First ACTIVE Ticket BACK
+            Thread.sleep(1000);
+            try {
+                FlightsPage.FirstBack.click();
+            } catch (Exception e) {
+                System.out.println("Selecting First ACTIVE Ticket BACK : " + e.getMessage());
+                FlightsPage.FirstBack2.click();
+            }
+        }
+        Thread.sleep(1000);
         //Button Continue
         try {
             wait.until(ExpectedConditions.visibilityOf(FlightsPage.BigContinue));
@@ -214,15 +262,24 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
             Thread.sleep(1000);
             FlightsPage.BigContinue.click();
             System.out.println("Accepted the alert successfully.");
-            System.out.println("No Element Continue : "+ e.getMessage());
+            System.out.println("No Element Continue : " + e.getMessage());
         }
+
         // Passengers Page
-        //Take screenshot
-        wait.until(ExpectedConditions.visibilityOf(PassengersPage.CheckboxAccept));
+        Thread.sleep(1000);
+        //New Popup
+
         try {
-            GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-        } catch (IOException e) {
-            e.printStackTrace();
+            Assert.assertEquals(FlightsPage.NoThanks.isDisplayed(),true);
+        } catch (NoSuchElementException e) {
+            Assert.fail("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
+        }
+
+        if (FlightsPage.NoThanks.isDisplayed()==true) {
+            GetScreenshot.capture("Upsell/"+from+"/"+to);
+                FlightsPage.NoThanks.click();
+        } else {
+            Assert.fail("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
 
         //Selecting title
@@ -250,7 +307,7 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
             Select year = new Select(PassengersPage.YearOfBirth);
             year.selectByVisibleText(YearOfBirth);
         } catch (Exception e) {
-            System.out.println("Short haul : "+ e.getMessage());
+            System.out.println("Short haul : " + e.getMessage());
         }
         //DATE OF BIRTH
 
@@ -262,20 +319,22 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.CheckboxAccept));
         PassengersPage.CheckboxAccept.click();
 
+
         //Waiting and Clicking on Big Continue Button. Next try to Click Accept User Data Popup.
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.BigContinue));
         PassengersPage.BigContinue.click();
+        Thread.sleep(1000);
         try {
             PassengersPage.PopupAccept.click();
-        }catch (Exception e){
-            System.out.println("No Popup : "+ e.getMessage());
+        } catch (Exception e) {
+            System.out.println("No Popup : " + e.getMessage());
         }
 
         //Extra Page
         //Take screenshot
-                wait.until(ExpectedConditions.visibilityOf(ExtrasPage.Column1));
+        wait.until(ExpectedConditions.visibilityOf(ExtrasPage.Column1));
         try {
-            GetScreenshot.capture("ExtraPage " + localization + from + to + departuredata);
+            GetScreenshot.capture("ExtraPage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -284,14 +343,14 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
             wait.until(ExpectedConditions.visibilityOf(ExtrasPage.BigContinue));
             ExtrasPage.BigContinue.click();
         } catch (Exception e) {
-            System.out.println("No Element Continue : "+ e.getMessage());
+            System.out.println("No Element Continue : " + e.getMessage());
         }
         //Extra Page
 
         //Payment Page
         wait.until(ExpectedConditions.visibilityOf(PaymentPage.BookNr));
         try {
-            GetScreenshot.capture("PaymentPage " + localization + from + to + departuredata);
+            GetScreenshot.capture("PaymentPage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -325,35 +384,27 @@ public class LotBiletyAllOneWayFlightEDGE extends MainTest{
         //DropdownLists
         //Credit Card
 
-        //Waiting and Clicking on Big Continue Button.
-        try {
-            wait.until(ExpectedConditions.visibilityOf(PaymentPage.BigContinue));
-            PaymentPage.BigContinue.click();
-        } catch (Exception e) {
-            System.out.println("Problem with Continue button : "+ e.getMessage());
-        }
-        //END OF TEST
+
     }
 
+    //Excel configuration
     @DataProvider(name ="data")
     public Object[][] passData()
     {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\OneWayFlight.xlsx");
+        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\upsell.xlsx");
         int rows = config.getRowCount(0);
-        Object[][] data=new Object[rows][4];
+        Object[][] data=new Object[rows][5];
 
         for(int i=0;i<rows;i++){
             data[i][0]=config.getData(0,i,0);
             data[i][1]=config.getData(0,i,1);
             data[i][2]=config.getData(0,i,2);
             data[i][3]=config.getNumber(0,i,3);
-
+            data[i][4]=config.getNumber(0,i,4);
         }
         return data;
     }
 
-
-    //After and of Class test
     @AfterTest(alwaysRun = true)
     public void tearDown1() throws Exception {
         driver.manage().deleteAllCookies();

@@ -84,7 +84,7 @@ public class HomePage {
     @FindBy(id = "numOfAdults-listener")
     public static WebElement Adults;
 
-    @FindBy(id = "select2-ticketClass-container")
+    @FindBy(css = "div.booker-column-2 > div:nth-child(2)")
     public static WebElement TicketClass;
 
     @FindBy(css = ".select2-results>ul>li[id*=\"ECONO\"]")

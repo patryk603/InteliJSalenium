@@ -135,7 +135,7 @@ public class LotBiletyAllSelectPlacesEDGE extends MainTest{
         System.out.println("Lokalizacja: "+localization+" | Lot z: " +from+ " | Lot do: "+to+" | Data wylotu: "+newDate+" | Data powrotu: "+newDate2+"  Start testu: "+start);
         //Take screenshot
         try {
-            GetScreenshot.capture("HomePagePRE2 " + localization + from + to + departuredata + returndata);
+            GetScreenshot.capture("HomePage " + localization + from + to + departuredata + returndata);
         } catch (IOException e) {
             e.printStackTrace();
         }

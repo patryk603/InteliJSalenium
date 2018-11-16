@@ -41,6 +41,10 @@ public class FlightsPage {
     @FindBy(css = ".timeToThink__link")
     public static WebElement TTT;
 
+    @FindBy(css = "#loadingDetailsUpsell > div.modal-upsell-footer > div.modal-upsell-footer-buttons > button.btn.btn-type6")
+    public static WebElement NoThanks;
+
+
 
     public FlightsPage(WebDriver driver){
 

@@ -342,6 +342,13 @@ public class PassengersPage {
     @FindBy(css = ".btn.btn-type3[onclick*=\"accept\"]")
     public static WebElement PopupAccept;
 
+    @FindBy(css = "#insuranceLoading > div:nth-child(1) > div.hidden-xs > table > tbody > tr.js-insuranceButtons.insuranceButtons > td.text-center")
+    public static WebElement Insurance;
+
+    @FindBy(css = ".checkbox>input[id*=InsuranceCheckBoxCheckbox]")
+    public static WebElement InsuranceCheckbox;
+
+
 
     public PassengersPage(WebDriver driver){
 
