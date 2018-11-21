@@ -8,17 +8,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import pageObjects.*;
-
+import org.testng.asserts.IAssert;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,6 +47,15 @@ public class DataLayer extends MainTest{
     @Test(dataProvider = "data",groups=("BuyTickets"))
     public void DataLayerTest(String market, String language, String departureport, String arrivalport, XSSFCell bookingwindow, XSSFCell staylength, XSSFCell ADT, XSSFCell YTH, XSSFCell CHD, XSSFCell INF, String cabinclass, String page_version) throws Exception {
 
+        //Data Config
+        long SL = (long) staylength.getNumericCellValue();
+        long SL1 = (long) staylength.getNumericCellValue()+1;
+        long ADT1 = (long) ADT.getNumericCellValue();
+        long YTH1 = (long) YTH.getNumericCellValue();
+        long CHD1 = (long) CHD.getNumericCellValue();
+        long INF1 = (long) INF.getNumericCellValue();
+
+
         //Data From Excel configuration
         market = market.toLowerCase();
         language = language.toLowerCase();
@@ -56,7 +64,6 @@ public class DataLayer extends MainTest{
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + market + "/" + language);
         ImplicitWait(driver);
-
         //TIME Configuration
         String dat1 = String.valueOf(bookingwindow);
         if (dat1.length() > 0) {
@@ -72,6 +79,7 @@ public class DataLayer extends MainTest{
         String eutime = "dd.MM.yyyy";
         String hutime = "yy.MM.dd";
         String ustime = "MM.dd.yyyy";
+        String unify = "dd.MM.yy";
 
         String actualtime;
         if (market.contains("us")) {
@@ -105,13 +113,49 @@ public class DataLayer extends MainTest{
         }
         //Number of Days to add
         c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat1)));
-        b.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat2)));
+        b.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat1))+Integer.parseInt(String.valueOf(dat2)));
 
         //Date after adding the days to the given date
-        String newDate = sdf.format(c.getTime());
-        String newDate2 = sdf.format(b.getTime());
+        String newDate = sdf.format(c.getTime()); //departure
+        String newDate2 = sdf.format(b.getTime()); //return
 
         //Displaying the new Date after addition of Days
+
+        //Add Date for check in DataLayer
+        //Given Date in String format
+        String unitime = new SimpleDateFormat(unify).format(Calendar.getInstance().getTime());
+
+        //Specifying date format that matches the given date
+        SimpleDateFormat sdf2 = new SimpleDateFormat(unify);
+
+
+        Calendar v = Calendar.getInstance();
+        Calendar n = Calendar.getInstance();
+        try {
+            //Setting the date to the given date
+            v.setTime(sdf2.parse(unitime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            //Setting the date to the given date
+            n.setTime(sdf2.parse(unitime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //Number of Days to add
+        v.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat1)));
+        n.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat2)));
+
+        //Date after adding the days to the given date
+        String DepDate = sdf2.format(c.getTime()); //departure
+        String RetDate = sdf2.format(b.getTime()); //return
+
+        //Format time
+        System.out.println("DepDate1: " + DepDate);
+        System.out.println("RetDate1: " + RetDate);
+        String DDate=DepDate.replaceAll("\\.","/");
+        String RDate=RetDate.replaceAll("\\.","/");
         //TIME
 
         //TEST START
@@ -157,154 +201,246 @@ public class DataLayer extends MainTest{
         HomePage.DepartureDate.clear();
         HomePage.DepartureDate.sendKeys(newDate);
 
-        //Data Config
-        int SL = (int) staylength.getNumericCellValue();
+
 
         System.out.println("SL: " + SL);
-        if (SL == 0) {
+        if (SL == -1) {
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.OneWayFlight));
             HomePage.OneWayFlight.click();
             System.out.println("One Way Flight ");
 
         } else {
             //Selecting Return Date
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.RTFlight));
+            HomePage.RTFlight.click();
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ReturnDate));
             HomePage.ReturnDate.clear();
             HomePage.ReturnDate.sendKeys(newDate2);
+            System.out.println(" RT selected ");
+        }
+
+        HomePage.Lot.click();
+
+        //Data Config
+        int adt = (int) ADT.getNumericCellValue() + 1;
+        int yth = (int) YTH.getNumericCellValue() + 1;
+        int chd = (int) CHD.getNumericCellValue() + 1;
+        int inf = (int) INF.getNumericCellValue() + 1;
+
+        //Selecting NUMBER OF PASSENGERS
+
+        if (adt > 0) {
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.Passengers));
+            HomePage.Passengers.click();
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.NumberOfAdults));
+            Select numOfAdults = new Select(HomePage.NumberOfAdults);
+            System.out.println("Adults: " + adt);
+            numOfAdults.selectByIndex(adt);
+        }
+
+        if (yth > 0) {
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.NumberOfYouths));
+            Select numOfYouths = new Select(HomePage.NumberOfYouths);
+            System.out.println("Youths: " + yth);
+            numOfYouths.selectByIndex(yth);
+        }
+
+        if (chd > 0) {
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.NumberOfChildrens));
+            Select numOfAdults = new Select(HomePage.NumberOfChildrens);
+            System.out.println("Children: " + chd);
+            numOfAdults.selectByIndex(chd);
+        }
+
+        if (inf > 0) {
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.NumberOfInfants));
+            Select numOfAdults = new Select(HomePage.NumberOfInfants);
+            System.out.println("Infants: " + inf);
+            numOfAdults.selectByIndex(inf);
+        }
+
+        //Cabin Class select
+        if (cabinclass.contains("E")) {
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.TicketClass));
+            HomePage.TicketClass.click();
+            HomePage.Economy.click();
+            System.out.println(" Economy class selected ");
+
+        } else if (cabinclass.contains("B")) {
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.TicketClass));
+            HomePage.TicketClass.click();
+            HomePage.Business.click();
             System.out.println(" Business class selected ");
+
+        } else if (cabinclass.contains("P")) {
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.TicketClass));
+            HomePage.TicketClass.click();
+            HomePage.Premium.click();
+            System.out.println(" Premium class selected ");
+
+        } else {
+            System.out.println(" Please check |cabinclass| value in excel = " + cabinclass);
+        }
+        Thread.sleep(11000);
+        //Submit Button go from Home Page to Flight Page
+        HomePage.Submit.submit();
+
+        //FlightPage
+        try {
+            wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
+        } catch (Exception e) {
+            System.out.println("To long loading time of booker page | step 2- flights : " + e.getMessage());
         }
 
-            HomePage.Lot.click();
+        //Popup handle
+        try {
+            FlightsPage.OK.click();
+        } catch (Exception e) {
+            //System.out.println("Flight are available in that date : " + e.getMessage());
+        }
 
-            //Data Config
-            int adt = (int) ADT.getNumericCellValue() + 1;
-            int yth = (int) YTH.getNumericCellValue() + 1;
-            int chd = (int) CHD.getNumericCellValue() + 1;
-            int inf = (int) INF.getNumericCellValue() + 1;
+        //JSESSION ID
+        Cookie jcookie = driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("JSESSIONID: " + jcookie.getValue());
 
-            //Selecting NUMBER OF PASSENGERS
-
-            if (adt > 0) {
-                wait.until(ExpectedConditions.elementToBeClickable(HomePage.Passengers));
-                HomePage.Passengers.click();
-                wait.until(ExpectedConditions.elementToBeClickable(HomePage.NumberOfAdults));
-                Select numOfAdults = new Select(HomePage.NumberOfAdults);
-                System.out.println("Adults: " + adt);
-                numOfAdults.selectByIndex(adt);
-            }
-
-            if (yth > 0) {
-                wait.until(ExpectedConditions.elementToBeClickable(HomePage.NumberOfYouths));
-                Select numOfYouths = new Select(HomePage.NumberOfYouths);
-                System.out.println("Youths: " + yth);
-                numOfYouths.selectByIndex(yth);
-            }
-
-            if (chd > 0) {
-                wait.until(ExpectedConditions.elementToBeClickable(HomePage.NumberOfChildrens));
-                Select numOfAdults = new Select(HomePage.NumberOfChildrens);
-                System.out.println("Children: " + chd);
-                numOfAdults.selectByIndex(chd);
-            }
-
-            if (inf > 0) {
-                wait.until(ExpectedConditions.elementToBeClickable(HomePage.NumberOfInfants));
-                Select numOfAdults = new Select(HomePage.NumberOfInfants);
-                System.out.println("Infants: " + inf);
-                numOfAdults.selectByIndex(inf);
-            }
-
-            //Cabin Class select
-            if (cabinclass.contains("E")) {
-                wait.until(ExpectedConditions.elementToBeClickable(HomePage.TicketClass));
-                HomePage.TicketClass.click();
-                HomePage.Economy.click();
-                System.out.println(" Economy class selected ");
-
-            } else if (cabinclass.contains("B")) {
-                wait.until(ExpectedConditions.elementToBeClickable(HomePage.TicketClass));
-                HomePage.TicketClass.click();
-                HomePage.Business.click();
-                System.out.println(" Business class selected ");
-
-            } else if (cabinclass.contains("P")) {
-                wait.until(ExpectedConditions.elementToBeClickable(HomePage.TicketClass));
-                HomePage.TicketClass.click();
-                HomePage.Premium.click();
-                System.out.println(" Premium class selected ");
-
-            } else {
-                System.out.println(" Please check |cabinclass| value in excel = " + cabinclass);
-            }
-            Thread.sleep(11000);
-            //Submit Button go from Home Page to Flight Page
-            HomePage.Submit.submit();
-
-            //FlightPage
-            try {
-                wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
-            } catch (Exception e) {
-                System.out.println("To long loading time of booker page | step 2- flights : " + e.getMessage());
-            }
-
-            //Popup handle
-            try {
-                FlightsPage.OK.click();
-            } catch (Exception e) {
-                //System.out.println("Flight are available in that date : " + e.getMessage());
-            }
-
-            //JSESSION ID
-            Cookie jcookie = driver.manage().getCookieNamed("JSESSIONID");
-            System.out.println("JSESSIONID: " + jcookie.getValue());
-
-            //Take screenshot
-            try {
-                GetScreenshot.capture("FlightPage " + market + "/" + language + departureport + arrivalport + bookingwindow + staylength);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Thread.sleep(3000);
+        //Take screenshot
+        try {
+            GetScreenshot.capture("FlightPage " + market + "/" + language + departureport + arrivalport + bookingwindow + staylength);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Thread.sleep(6000);
 
 
-            //Data Layer
-            //market
-            market = market.toUpperCase();
-            Object DLmarket = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"market\"]");
-            System.out.println("Data Layer |market| From Excel: " + market);
-            System.out.println("Data Layer |market| From LOT.COM: " + DLmarket);
-            Assert.assertEquals(market, DLmarket, "Market does not match");
+        //Data Layer
 
-            //language
-            language = language.toUpperCase();
-            Object DLlanguage = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"language\"]");
-            System.out.println("Data Layer |language| From Excel: " + language);
-            System.out.println("Data Layer |language| From LOT.COM: " + DLlanguage);
-            Assert.assertEquals(language, DLlanguage, "Language does not match");
+        SoftAssert assertion=new SoftAssert();
 
+        //market
+        market = market.toUpperCase();
+        Object DLmarket = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"market\"]");
+        System.out.println("Data Layer |market| From Excel: " + market);
+        System.out.println("Data Layer |market| From LOT.COM: " + DLmarket);
+        assertion.assertEquals(market, DLmarket, "Market does not match");
+
+        //language
+        language = language.toUpperCase();
+        Object DLlanguage = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"language\"]");
+        System.out.println("Data Layer |language| From Excel: " + language);
+        System.out.println("Data Layer |language| From LOT.COM: " + DLlanguage);
+        assertion.assertEquals(language, DLlanguage, "Language does not match");
+
+        //pageid
+        Object pageid = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"pageid\"]");
+        System.out.println("Data Layer |pageid| From LOT.COM: " + pageid);
+        assertion.assertEquals(pageid, "FLIGHTS", "Pageid should be: FLIGHTS, is: " + pageid);
+
+
+        if (SL == -1) {
             //triptype
+            Object triptype = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"triptype\"]");
+            System.out.println("Data Layer |triptype| From LOT.COM: " + triptype);
+            assertion.assertEquals(triptype, "O", "Triptype should be: One Way, is: " + triptype);
 
-            if (SL==0) {
-                Object DLtriptype = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"triptype\"]");
-                String DL = (String) DLtriptype;
-                if (DL.contains("O")){
-                    System.out.println("Data Layer |triptype| is OK " );
-                }
-                else {
-                    Assert.fail("Data Layer |triptype| should be |O| ");
-                }
-
-            } else {
-                Object DLtriptype = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"triptype\"]");
-                String DL = (String) DLtriptype;
-                if (DL.contains("R")){
-                    System.out.println("Data Layer |triptype| is OK " );
-                }
-                else {
-                    Assert.fail("Data Layer |triptype| should be |R| but is: "+ DLtriptype);
-                }
-
-            }
+        } else {
+            //triptype
+            Object triptype = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"triptype\"]");
+            System.out.println("Data Layer |triptype| From LOT.COM: " + triptype);
+            assertion.assertEquals(triptype, "R", "Triptype should be: Run Trip, is: " + triptype);
         }
+
+        //departureloc
+        Object departureloc = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"departureloc\"]");
+        System.out.println("Data Layer |departureloc| From LOT.COM: " + departureloc);
+        assertion.assertEquals(departureloc, departureport, "Departureloc should be: "+departureport+" , is: " + departureloc);
+
+        //arrivalloc
+        Object arrivalloc = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"arrivalloc\"]");
+        System.out.println("Data Layer |arrivalloc| From LOT.COM: " + departureloc);
+        assertion.assertEquals(arrivalloc, arrivalport, "Arrivalloc should be: "+arrivalport+" , is: " + arrivalloc);
+
+        //depdate
+        Object depdate = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"depdate\"]");
+        System.out.println("Data Layer |depdate| From LOT.COM: " + depdate);
+        assertion.assertEquals(depdate, DDate, "Depdate should be: "+DDate+" , is: " + depdate);
+
+        if (SL == -1) {
+            //triptype
+            Object triptype = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"triptype\"]");
+            System.out.println("Data Layer |triptype| From LOT.COM: " + triptype);
+            assertion.assertEquals(triptype, "O", "Triptype should be: One Way, is: " + triptype);
+
+        } else {
+            //triptype
+            Object triptype = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"triptype\"]");
+            System.out.println("Data Layer |triptype| From LOT.COM: " + triptype);
+            assertion.assertEquals(triptype, "R", "Triptype should be: Run Trip, is: " + triptype);
+        }
+        if (SL == -1) {
+            //retdate
+            Object retdate = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"retdate\"]");
+            System.out.println("Data Layer |retdate| From LOT.COM: " + retdate);
+            assertion.assertEquals(retdate, null, "Retdate should be: "+null+" , is: " + retdate);
+
+        } else {
+            //retdate
+            Object retdate = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"retdate\"]");
+            System.out.println("Data Layer |retdate| From LOT.COM: " + retdate);
+            assertion.assertEquals(retdate, RDate, "Retdate should be: "+RDate+" , is: " + retdate);
+        }
+
+        if (SL == -1) {
+            //staylength
+            Object slength = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"staylength\"]");
+            System.out.println("Data Layer |staylength| From LOT.COM: " + slength);
+            assertion.assertEquals(slength, null, "Staylength should be: "+null+" , is: " + slength);
+
+        } else {
+            //staylength
+            Object slength = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"staylength\"]");
+            System.out.println("Data Layer |staylength| From LOT.COM: " + slength);
+            assertion.assertEquals(slength, SL1, "Staylength should be: "+SL1+" , is: " + slength);
+        }
+
+        //numofadults
+        Object numofadults = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"numofadults\"]");
+        System.out.println("Data Layer |numofadults| From LOT.COM: " + numofadults);
+        assertion.assertEquals(numofadults, ADT1, "Numofadults should be: "+ADT1+" , is: " + numofadults);
+
+        //numofteenagers
+        Object numofteenagers = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"numofteenagers\"]");
+        System.out.println("Data Layer |numofteenagers| From LOT.COM: " + numofteenagers);
+        assertion.assertEquals(numofteenagers, YTH1, "Numofteenagers should be: "+YTH1+" , is: " + numofteenagers);
+
+        //numofchildren
+        Object numofchildren = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"numofchildren\"]");
+        System.out.println("Data Layer |numofchildren| From LOT.COM: " + numofchildren);
+        assertion.assertEquals(numofchildren, CHD1, "Numofchildren should be: "+CHD1+" , is: " + numofchildren);
+
+        //numofinfants
+        Object numofinfants = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"numofinfants\"]");
+        System.out.println("Data Layer |numofinfants| From LOT.COM: " + numofinfants);
+        assertion.assertEquals(numofinfants, INF1, "Numofinfants should be: "+INF1+" , is: " + numofinfants);
+
+        //numoftravellers
+        Long Travellers = ADT1+YTH1+CHD1+INF1;
+        Object numoftravellers = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"numoftravellers\"]");
+        System.out.println("Data Layer |numoftravellers| From LOT.COM: " + numoftravellers);
+        assertion.assertEquals(numoftravellers, Travellers, "Numoftravellers should be: "+Travellers+" , is: " + numoftravellers);
+
+        //cabinclass
+        Object cablass = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"cabinclass\"]");
+        System.out.println("Data Layer |cabinclass| From LOT.COM: " + cablass);
+        assertion.assertEquals(cablass, cabinclass, "Cabinclass should be: "+cabinclass+" , is: " + cablass);
+
+        //platform
+        Object platform = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"platform\"]");
+        System.out.println("Data Layer |platform| From LOT.COM: " + platform);
+        assertion.assertEquals(platform, "PORTAL", "Platform should be: PORTAL , is: " + platform);
+
+        assertion.assertAll();
+
+    }
 
 
     @DataProvider(name ="data")

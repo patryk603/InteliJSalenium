@@ -115,7 +115,8 @@ public class HomePage {
     public static WebElement OneWayFlight;
 
 
-
+    @FindBy(css = ".flight-type>label")
+    public static WebElement RTFlight;
 
 
     public HomePage(WebDriver driver){
