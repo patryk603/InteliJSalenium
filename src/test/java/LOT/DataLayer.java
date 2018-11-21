@@ -44,7 +44,7 @@ public class DataLayer extends MainTest{
     }
 
 
-    @Test(dataProvider = "data",groups=("BuyTickets"))
+    @Test(dataProvider = "data",groups=("DataLayer"))
     public void DataLayerTest(String market, String language, String departureport, String arrivalport, XSSFCell bookingwindow, XSSFCell staylength, XSSFCell ADT, XSSFCell YTH, XSSFCell CHD, XSSFCell INF, String cabinclass, String page_version) throws Exception {
 
         //Data Config
