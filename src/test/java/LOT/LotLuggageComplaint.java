@@ -22,8 +22,6 @@ import static org.testng.Assert.assertEquals;
 
 public class LotLuggageComplaint extends MainTest {
     private String baseUrl;
-    private boolean acceptNextAlert = true;
-    private StringBuffer verificationErrors = new StringBuffer();
     private String Test = "Test";
 
     @BeforeTest(alwaysRun = true)

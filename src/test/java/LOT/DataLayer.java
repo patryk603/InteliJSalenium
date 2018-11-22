@@ -79,7 +79,7 @@ public class DataLayer extends MainTest{
         String eutime = "dd.MM.yyyy";
         String hutime = "yy.MM.dd";
         String ustime = "MM.dd.yyyy";
-        String unify = "dd.MM.yy";
+        String unify = "d.M.yy";
 
         String actualtime;
         if (market.contains("us")) {
@@ -319,14 +319,12 @@ public class DataLayer extends MainTest{
         //market
         market = market.toUpperCase();
         Object DLmarket = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"market\"]");
-        System.out.println("Data Layer |market| From Excel: " + market);
         System.out.println("Data Layer |market| From LOT.COM: " + DLmarket);
         assertion.assertEquals(market, DLmarket, "Market does not match");
 
         //language
         language = language.toUpperCase();
         Object DLlanguage = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"language\"]");
-        System.out.println("Data Layer |language| From Excel: " + language);
         System.out.println("Data Layer |language| From LOT.COM: " + DLlanguage);
         assertion.assertEquals(language, DLlanguage, "Language does not match");
 
@@ -356,7 +354,7 @@ public class DataLayer extends MainTest{
 
         //arrivalloc
         Object arrivalloc = ((JavascriptExecutor) driver).executeScript("return dataLayer[0][\"arrivalloc\"]");
-        System.out.println("Data Layer |arrivalloc| From LOT.COM: " + departureloc);
+        System.out.println("Data Layer |arrivalloc| From LOT.COM: " + arrivalloc);
         assertion.assertEquals(arrivalloc, arrivalport, "Arrivalloc should be: "+arrivalport+" , is: " + arrivalloc);
 
         //depdate
