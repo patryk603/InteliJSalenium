@@ -160,11 +160,7 @@ public class DataLayer extends MainTest{
 
         //TEST START
         ZonedDateTime start = ZonedDateTime.now();
-
-        //JSESSION ID
-        Cookie cookie = driver.manage().getCookieNamed("JSESSIONID");
-        System.out.println(market + "/" + language + "/" + departureport + "/" + arrivalport + "/" + bookingwindow + "/" + staylength + "/" + ADT + "/" + YTH + "/" + CHD + "/" + INF + "/" + cabinclass + "/" + page_version + "JSESSIONID: " + cookie.getValue());
-
+        System.out.println("Test started for: "+market + "/" + language + "/" + departureport + "/" + arrivalport + "/" + bookingwindow + "/" + staylength + "/" + ADT + "/" + YTH + "/" + CHD + "/" + INF + "/" + cabinclass + "/" + page_version);
 
         //Take screenshot
         try {
@@ -202,7 +198,7 @@ public class DataLayer extends MainTest{
         HomePage.DepartureDate.sendKeys(newDate);
 
 
-
+        //OW vs RT
         System.out.println("SL: " + SL);
         if (SL == -1) {
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.OneWayFlight));
@@ -286,11 +282,16 @@ public class DataLayer extends MainTest{
         HomePage.Submit.submit();
 
         //FlightPage
+
         try {
             wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
         } catch (Exception e) {
             System.out.println("To long loading time of booker page | step 2- flights : " + e.getMessage());
         }
+
+        //JSESSION ID
+        Cookie cookie = driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("JSESSIONID: " + cookie.getValue());
 
         //Popup handle
         try {
@@ -438,8 +439,9 @@ public class DataLayer extends MainTest{
 
         assertion.assertAll();
 
-    }
+        System.out.println("Test ended for: "+market + "/" + language + "/" + departureport + "/" + arrivalport + "/" + bookingwindow + "/" + staylength + "/" + ADT + "/" + YTH + "/" + CHD + "/" + INF + "/" + cabinclass + "/" + page_version);
 
+    }
 
     @DataProvider(name ="data")
     public Object[][] passData()
@@ -471,6 +473,5 @@ public class DataLayer extends MainTest{
         driver.manage().deleteAllCookies();
         driver.quit();
     }
-
 
 }

@@ -6,12 +6,14 @@ import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 
@@ -243,12 +245,15 @@ public class LotBiletyAllSelectPlaces extends MainTest{
             System.out.println("No Element Continue : "+ e.getMessage());
         }
         // Passengers Page
-        //Take screenshot
-        wait.until(ExpectedConditions.visibilityOf(PassengersPage.CheckboxAccept));
-        try {
-            GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Thread.sleep(1000);
+        //Upsell Popup
+
+        if (FlightsPage.NoThanks.isDisplayed()==true) {
+            GetScreenshot.capture("Upsell/"+from+"/"+to);
+            FlightsPage.NoThanks.click();
+        } else {
+            System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
+            GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
         }
 
         //Selecting title

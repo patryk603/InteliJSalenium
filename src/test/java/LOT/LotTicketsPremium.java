@@ -242,13 +242,15 @@ public class LotTicketsPremium extends MainTest{
             System.out.println("No Element Continue : "+ e.getMessage());
         }
         // Passengers Page
-        //Take screenshot
-        wait.until(ExpectedConditions.visibilityOf(PassengersPage.CheckboxAccept));
-        try {
-            GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Thread.sleep(1000);
+        //Upsell Popup
+        if (FlightsPage.NoThanks.isDisplayed()==true) {
+            GetScreenshot.capture("Upsell/"+from+"/"+to);
+            FlightsPage.NoThanks.click();
+        } else {
+            System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
+        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
 
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));

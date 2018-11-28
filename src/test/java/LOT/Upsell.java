@@ -188,17 +188,21 @@ public class Upsell extends MainTest{
         //Data Config
         int SL = (int) returndata.getNumericCellValue();
 
-        System.out.println("Stay length : " + SL);
-        if (SL == 0) {
+        //OW vs RT
+        System.out.println("SL: " + SL);
+        if (SL == -1) {
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.OneWayFlight));
             HomePage.OneWayFlight.click();
-            System.out.println("OW Flight ");
+            System.out.println("One Way Flight ");
 
         } else {
             //Selecting Return Date
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.RTFlight));
+            HomePage.RTFlight.click();
+            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ReturnDate));
             HomePage.ReturnDate.clear();
             HomePage.ReturnDate.sendKeys(newDate2);
-            System.out.println("RT Flight ");
+            System.out.println(" RT selected ");
         }
 
         Thread.sleep(1000);
@@ -209,7 +213,7 @@ public class Upsell extends MainTest{
         try {
             wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
         } catch (Exception e) {
-            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : " + e.getMessage());
+            System.out.println("Too long time of booker loading on step 2- flights : " + e.getMessage());
         }
 
         //Popup handle
