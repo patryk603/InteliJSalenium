@@ -152,8 +152,6 @@ public class DataLayer extends MainTest{
         String RetDate = sdf2.format(b.getTime()); //return
 
         //Format time
-        System.out.println("DepDate1: " + DepDate);
-        System.out.println("RetDate1: " + RetDate);
         String DDate=DepDate.replaceAll("\\.","/");
         String RDate=RetDate.replaceAll("\\.","/");
         //TIME
@@ -161,7 +159,8 @@ public class DataLayer extends MainTest{
         //TEST START
         ZonedDateTime start = ZonedDateTime.now();
         System.out.println("Test started for: "+market + "/" + language + "/" + departureport + "/" + arrivalport + "/" + bookingwindow + "/" + staylength + "/" + ADT + "/" + YTH + "/" + CHD + "/" + INF + "/" + cabinclass + "/" + page_version);
-
+        System.out.println("DepDate1: " + DepDate);
+        System.out.println("RetDate1: " + RetDate);
         //Take screenshot
         try {
             GetScreenshot.capture("HomePage " + market + "/" + language + departureport + arrivalport + bookingwindow + staylength);
@@ -288,10 +287,6 @@ public class DataLayer extends MainTest{
         } catch (Exception e) {
             System.out.println("To long loading time of booker page | step 2- flights : " + e.getMessage());
         }
-
-        //JSESSION ID
-        Cookie cookie = driver.manage().getCookieNamed("JSESSIONID");
-        System.out.println("JSESSIONID: " + cookie.getValue());
 
         //Popup handle
         try {

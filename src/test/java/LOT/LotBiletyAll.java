@@ -244,6 +244,7 @@ public class LotBiletyAll extends MainTest{
         }
         // Passengers Page
         Thread.sleep(1000);
+
         //Upsell Popup
         if (FlightsPage.NoThanks.isDisplayed()==true) {
             GetScreenshot.capture("Upsell/"+from+"/"+to);

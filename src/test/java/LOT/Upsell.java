@@ -162,8 +162,6 @@ public class Upsell extends MainTest{
 
         //Selecting To Flight
         try {
-            //wait.until(ExpectedConditions.elementToBeClickable(HomePagePRE2.ToList));
-            //HomePagePRE2.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
             driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
@@ -270,14 +268,10 @@ public class Upsell extends MainTest{
         }
 
         // Passengers Page
-        Thread.sleep(1000);
-        //New Popup
 
-        try {
-            Assert.assertEquals(FlightsPage.NoThanks.isDisplayed(),true);
-        } catch (NoSuchElementException e) {
-            Assert.fail("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(FlightsPage.NoThanks));
+
+        //Upsell Popup
 
         if (FlightsPage.NoThanks.isDisplayed()==true) {
             GetScreenshot.capture("Upsell/"+from+"/"+to);
