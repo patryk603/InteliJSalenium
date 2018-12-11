@@ -257,14 +257,12 @@ public class LotMultiTickets extends MainTest{
         // Passengers Page
         Thread.sleep(1000);
         //Upsell Popup
-        if (FlightsPage.NoThanks.isDisplayed()==true) {
-            GetScreenshot.capture("Upsell/"+from+"/"+to);
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
             FlightsPage.NoThanks.click();
-        } else {
+        } catch (Exception e) {
             System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
-        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
         PassengersPage.TitleAdult1.click();
@@ -589,15 +587,12 @@ public class LotMultiTickets extends MainTest{
         // Passengers Page
         Thread.sleep(1000);
         //Upsell Popup
-        if (FlightsPage.NoThanks.isDisplayed()==true) {
-            GetScreenshot.capture("Upsell/"+from+"/"+to);
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
             FlightsPage.NoThanks.click();
-        } else {
+        } catch (Exception e) {
             System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
-        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-
-
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
         PassengersPage.TitleAdult1.click();
@@ -940,14 +935,12 @@ public class LotMultiTickets extends MainTest{
         // Passengers Page
         Thread.sleep(1000);
         //Upsell Popup
-        if (FlightsPage.NoThanks.isDisplayed()==true) {
-            GetScreenshot.capture("Upsell/"+from+"/"+to);
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
             FlightsPage.NoThanks.click();
-        } else {
+        } catch (Exception e) {
             System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
-        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
         PassengersPage.TitleAdult1.click();
@@ -1633,14 +1626,12 @@ public class LotMultiTickets extends MainTest{
         // Passengers Page
         Thread.sleep(1000);
         //Upsell Popup
-        if (FlightsPage.NoThanks.isDisplayed()==true) {
-            GetScreenshot.capture("Upsell/"+from+"/"+to);
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
             FlightsPage.NoThanks.click();
-        } else {
+        } catch (Exception e) {
             System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
-        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
         PassengersPage.TitleAdult1.click();
@@ -2009,14 +2000,12 @@ public class LotMultiTickets extends MainTest{
         // Passengers Page
         Thread.sleep(1000);
         //Upsell Popup
-        if (FlightsPage.NoThanks.isDisplayed()==true) {
-            GetScreenshot.capture("Upsell/"+from+"/"+to);
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
             FlightsPage.NoThanks.click();
-        } else {
+        } catch (Exception e) {
             System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
-        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
         PassengersPage.TitleAdult1.click();
@@ -2385,14 +2374,12 @@ public class LotMultiTickets extends MainTest{
         // Passengers Page
         Thread.sleep(1000);
         //Upsell Popup
-        if (FlightsPage.NoThanks.isDisplayed()==true) {
-            GetScreenshot.capture("Upsell/"+from+"/"+to);
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
             FlightsPage.NoThanks.click();
-        } else {
+        } catch (Exception e) {
             System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
-        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
         PassengersPage.TitleAdult1.click();
@@ -2723,14 +2710,12 @@ public class LotMultiTickets extends MainTest{
         // Passengers Page
         Thread.sleep(1000);
         //Upsell Popup
-        if (FlightsPage.NoThanks.isDisplayed()==true) {
-            GetScreenshot.capture("Upsell/"+from+"/"+to);
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
             FlightsPage.NoThanks.click();
-        } else {
+        } catch (Exception e) {
             System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
-        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
         PassengersPage.TitleAdult1.click();
@@ -3082,14 +3067,12 @@ public class LotMultiTickets extends MainTest{
         // Passengers Page
         Thread.sleep(1000);
         //Upsell Popup
-        if (FlightsPage.NoThanks.isDisplayed()==true) {
-            GetScreenshot.capture("Upsell/"+from+"/"+to);
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
             FlightsPage.NoThanks.click();
-        } else {
+        } catch (Exception e) {
             System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
-        GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata);
-
 
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
