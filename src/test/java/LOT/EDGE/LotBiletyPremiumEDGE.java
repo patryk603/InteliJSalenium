@@ -240,12 +240,12 @@ public class LotBiletyPremiumEDGE extends MainTest{
             System.out.println("No Element Continue : " + e.getMessage());
         }
         // Passengers Page
-        //Take screenshot
-        wait.until(ExpectedConditions.visibilityOf(PassengersPage.CheckboxAccept));
+        //Upsell Popup
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
         try {
-            GetScreenshot.capture("PassengersPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
+            FlightsPage.NoThanks.click();
+        } catch (Exception e) {
+            System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
         }
 
         //Selecting title

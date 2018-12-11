@@ -12,10 +12,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pageObjects.FlightsPage;
-import pageObjects.HomePage;
 import pageObjects.MMBPage;
-import pageObjects.PassengersPage;
 
 import java.io.IOException;
 import java.util.Objects;

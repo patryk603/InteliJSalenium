@@ -302,6 +302,7 @@ public class LotBiletyAllSelectPlaces extends MainTest{
 
         //Extra Page
         wait.until(ExpectedConditions.visibilityOf(ExtrasPage.Column1));
+        Thread.sleep(2000);
 
         //Selecting random seats TO destination
         try {
@@ -446,8 +447,8 @@ public class LotBiletyAllSelectPlaces extends MainTest{
     //After and of Class test
     @AfterTest(alwaysRun = true)
     public void tearDown1() throws Exception {
-        driver.manage().deleteAllCookies();
-        driver.quit();
+        //driver.manage().deleteAllCookies();
+        //driver.quit();
     }
     @AfterClass(alwaysRun = true)
     public void tearDown2() throws Exception {
