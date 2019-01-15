@@ -73,6 +73,11 @@ public class ExtrasPage {
 
     @FindBy(css = ".nr-anc__passenger-selector__segments>div>div>div>div>div>div>div>div>select[id$=\"pass_4_eq_1\"]")
     public static WebElement SpecialEquipmentPassanger4;
+
+    @FindBy(css = "#modal-emergency > div > div.modal-footer > div > a")
+    public static WebElement AdditionalPopup;
+
+
     //Equipment END
     public ExtrasPage(WebDriver driver){
 

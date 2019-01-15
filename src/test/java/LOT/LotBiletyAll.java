@@ -294,6 +294,7 @@ public class LotBiletyAll extends MainTest{
         //Waiting and Clicking on Big Continue Button. Next try to Click Accept User Data Popup.
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.BigContinue));
         PassengersPage.BigContinue.click();
+        Thread.sleep(3000);
         try {
             PassengersPage.PopupAccept.click();
         } catch (Exception e) {
@@ -385,8 +386,8 @@ public class LotBiletyAll extends MainTest{
 
     @AfterTest(alwaysRun = true)
     public void tearDown1() throws Exception {
-        driver.manage().deleteAllCookies();
-        driver.quit();
+        //driver.manage().deleteAllCookies();
+        //driver.quit();
     }
 
 }

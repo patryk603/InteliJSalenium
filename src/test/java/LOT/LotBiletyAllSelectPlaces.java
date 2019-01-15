@@ -293,8 +293,10 @@ public class LotBiletyAllSelectPlaces extends MainTest{
 
         //Waiting and Clicking on Big Continue Button. Next try to Click Accept User Data Popup.
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.BigContinue));
-        PassengersPage.BigContinue.click();
+
         try {
+            PassengersPage.BigContinue.click();
+            wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.PopupAccept));
             PassengersPage.PopupAccept.click();
         }catch (Exception e){
             System.out.println("No Popup : "+ e.getMessage());
@@ -317,6 +319,10 @@ public class LotBiletyAllSelectPlaces extends MainTest{
             System.out.println("No Element additional TO : "+ e.getMessage());
         }
 
+        //AdditionalPopup
+        try { ExtrasPage.AdditionalPopup.click();
+        } catch (Exception e) { }
+
         //Try selecting additional TO
         try {
             List<WebElement> listings3 = driver.findElements(By.cssSelector(".nr-anc__seats__content__right>div>table>tbody>tr>th>table>tbody>tr>td[id*=\"flight_1_segment_2\"]:not([class*=\"disabled\"])"));
@@ -329,7 +335,9 @@ public class LotBiletyAllSelectPlaces extends MainTest{
         } catch (Exception e) {
             System.out.println("No Element additional TO : "+ e.getMessage());
         }
-
+        //AdditionalPopup
+        try { ExtrasPage.AdditionalPopup.click();
+        } catch (Exception e) { }
 
         //Selecting random seats BACK from destination
         try {
@@ -344,6 +352,9 @@ public class LotBiletyAllSelectPlaces extends MainTest{
         } catch (Exception e) {
             System.out.println("No Element additional TO : "+ e.getMessage());
         }
+        //AdditionalPopup
+        try { ExtrasPage.AdditionalPopup.click();
+        } catch (Exception e) { }
 
         //Try selecting additional BACK
         try {
@@ -357,6 +368,9 @@ public class LotBiletyAllSelectPlaces extends MainTest{
         } catch (Exception e) {
             System.out.println("No Element additional BACK : "+ e.getMessage());
         }
+        //AdditionalPopup
+        try { ExtrasPage.AdditionalPopup.click();
+        } catch (Exception e) { }
 
         //Take screenshot
         try {
@@ -442,18 +456,10 @@ public class LotBiletyAllSelectPlaces extends MainTest{
     }
 
 
-    //After and of Class test
-
-    //After and of Class test
     @AfterTest(alwaysRun = true)
     public void tearDown1() throws Exception {
-        //driver.manage().deleteAllCookies();
-        //driver.quit();
-    }
-    @AfterClass(alwaysRun = true)
-    public void tearDown2() throws Exception {
-        //driver.manage().deleteAllCookies();
-        //driver.quit();
+        driver.manage().deleteAllCookies();
+        driver.quit();
     }
 
 }

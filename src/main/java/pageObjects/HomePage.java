@@ -114,10 +114,17 @@ public class HomePage {
     @FindBy(css = ".flight-type>.booker-label[class*=\"margin\"]")
     public static WebElement OneWayFlight;
 
-
     @FindBy(css = ".flight-type>label")
     public static WebElement RTFlight;
 
+    @FindBy(css = "#submit-booker > i")
+    public static WebElement NextHP;
+
+    @FindBy(css = "#flightBookingForm > div.booker-expand > div:nth-child(1) > div > a")
+    public static WebElement MultiCity;
+
+    @FindBy(css = "span.g-font-1.small-hide")
+    public static WebElement CoockiesFooter;
 
     public HomePage(WebDriver driver){
 

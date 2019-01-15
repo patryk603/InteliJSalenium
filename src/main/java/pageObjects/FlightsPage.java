@@ -14,8 +14,23 @@ public class FlightsPage {
     @FindBy(css = ".row-group.jsOfferSection[id*=\"Ida\"][class*=\"row-group jsOfferSection\"]:not([id*=\"0\"]):not([style*=\"display: none\"])")
     public static WebElement FirstTO;
 
+    @FindBy(css = ".row-group.jsOfferSection[id*=\"Ida\"][class*=\"row-group jsOfferSection\"]:not([id*=\"0\"]):not([style*=\"display: none\"])>div>div>div>label>span[class*=\"price\"]")
+    public static WebElement FirstTOCost;
+
+    @FindBy(id = "upsellPrice")
+    public static WebElement UpsellPrice;
+
+    @FindBy(css = "#flights-table__table_1 > tbody > tr.flights-table__row.active > td.flights-radios.flights-radios--active.flights-radios--col-select>div>div>div>div>div>label>input[name=\"precio\"]")
+    public static WebElement UpsellTOCost;
+
     @FindBy(css = ".row-group.jsOfferSection[id*=\"Vuelta\"][class*=\"row-group jsOfferSection\"]:not([id*=\"0\"]):not([style*=\"display: none\"])")
     public static WebElement FirstBack;
+
+    @FindBy(css = ".row-group.jsOfferSection[id*=\"Vuelta\"][class*=\"row-group jsOfferSection\"]:not([id*=\"0\"]):not([style*=\"display: none\"])>div>div>div>label>input[name=\"precio\"]")
+    public static WebElement FirstBackCost;
+
+    @FindBy(css = "#flights-table__table_2 > tbody > tr.flights-table__row.active > td.flights-radios.flights-radios--active.flights-radios--col-select>div>div>div>div>div>label>input[name=\"precio\"]")
+    public static WebElement UpsellBackCost;
 
     @FindBy(css = ".VAB__flights__list[id*=\"1\"] > li > div > ul > li > div > a")
     public static WebElement FirstTO1;
@@ -43,6 +58,9 @@ public class FlightsPage {
 
     @FindBy(css = "#loadingDetailsUpsell > div.modal-upsell-footer > div.modal-upsell-footer-buttons > button.btn.btn-type6")
     public static WebElement NoThanks;
+
+    @FindBy(css = "#loadingDetailsUpsell > div.modal-upsell-footer > div.modal-upsell-footer-buttons > button.btn.nr-btn__next-step")
+    public static WebElement YesThanks;
 
 
 

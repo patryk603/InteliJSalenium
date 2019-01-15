@@ -3,19 +3,14 @@ package LOT;
 import DDT.ExcelDataConfig;
 import Main.GetScreenshot;
 import Main.MainTest;
-import fj.F;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -27,11 +22,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Upsell extends MainTest{
+public class LotMulticity extends MainTest{
     private String baseUrl;
 
     //All Static Data
@@ -62,6 +55,7 @@ public class Upsell extends MainTest{
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
         PageFactory.initElements(driver, HomePage.class);
+        PageFactory.initElements(driver, MultiCity.class);
         PageFactory.initElements(driver, FlightsPage.class);
         PageFactory.initElements(driver, PassengersPage.class);
         PageFactory.initElements(driver, ExtrasPage.class);
@@ -70,8 +64,8 @@ public class Upsell extends MainTest{
 
 
     @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void Upsell(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
-        driver.manage().deleteCookieNamed("last_booking_type");
+    public void Multicity(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get(baseUrl + localization);
         ImplicitWait(driver);
@@ -149,23 +143,85 @@ public class Upsell extends MainTest{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        HomePage.CoockiesFooter.click();
+        HomePage.NextHP.click();
+        HomePage.MultiCity.click();
 
-        //Selecting From Flight
-        wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
-        HomePage.FromListButton.click();
-        wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromToText));
-        HomePage.FromToText.sendKeys(from);
 
+        //Selecting From1 Flight
+        //wait.until(ExpectedConditions.elementToBeClickable(MultiCity.From1));
+        MultiCity.From1.click();
+        wait.until(ExpectedConditions.elementToBeClickable(MultiCity.DDL));
+        MultiCity.DDL.sendKeys(from);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
         driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
-        //Click on home page
+        //Selecting To1 Flight
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
+        MultiCity.Text.sendKeys(to);
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
+        //Thread.sleep(10000);
+        //Selecting Flight1 Data
+        MultiCity.DepartureDate1.clear();
+        MultiCity.DepartureDate1.sendKeys(newDate);
 
+        //Add flight
+        MultiCity.MultiAdd.click();
+
+        //Selecting From2 Flight
+        MultiCity.From2.click();
+        wait.until(ExpectedConditions.elementToBeClickable(MultiCity.DDL));
+        MultiCity.DDL.sendKeys(from);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
+        //Selecting To2 Flight
+        MultiCity.Text.sendKeys(to);
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
+        //Selecting Flight2 Data
+        MultiCity.DepartureDate2.clear();
+        MultiCity.DepartureDate2.sendKeys(newDate);
+
+        //Add flight
+        MultiCity.MultiAdd.click();
+
+        //Selecting From3 Flight
+        MultiCity.From3.click();
+        wait.until(ExpectedConditions.elementToBeClickable(MultiCity.DDL));
+        MultiCity.DDL.sendKeys(from);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
+        //Selecting To3 Flight
+        MultiCity.Text.sendKeys(to);
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
+        //Selecting Flight3 Data
+        MultiCity.DepartureDate3.clear();
+        MultiCity.DepartureDate3.sendKeys(newDate);
+
+        //Add flight
+        MultiCity.MultiAdd.click();
+
+        //Selecting From4 Flight
+        MultiCity.From4.click();
+        wait.until(ExpectedConditions.elementToBeClickable(MultiCity.DDL));
+        MultiCity.DDL.sendKeys(from);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
+        //Selecting To4 Flight
+        MultiCity.Text.sendKeys(to);
+        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
+        //Selecting Flight4 Data
+        MultiCity.DepartureDate4.clear();
+        MultiCity.DepartureDate4.sendKeys(newDate);
+
+        /*
         Thread.sleep(1000);
 
         //Selecting To Flight
         try {
+            //wait.until(ExpectedConditions.elementToBeClickable(HomePagePRE2.ToList));
+            //HomePagePRE2.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
+            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
         } catch (Exception e) {
             System.out.println("Need additional click : " + e.getMessage());
             HomePage.Lot.click();
@@ -173,7 +229,7 @@ public class Upsell extends MainTest{
             HomePage.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to+"]")).click();
+            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
         }
 
 
@@ -184,27 +240,11 @@ public class Upsell extends MainTest{
         HomePage.DepartureDate.clear();
         HomePage.DepartureDate.sendKeys(newDate);
 
-        //Data Config
-        int SL = (int) returndata.getNumericCellValue();
+        //Selecting Return Date
+        HomePage.ReturnDate.clear();
+        HomePage.ReturnDate.sendKeys(newDate2);
+        HomePage.Lot.click();
 
-        //OW vs RT
-        System.out.println("SL: " + SL);
-        if (SL == -1) {
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.OneWayFlight));
-            HomePage.OneWayFlight.click();
-            System.out.println("One Way Flight ");
-
-        } else {
-            //Selecting Return Date
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.RTFlight));
-            HomePage.RTFlight.click();
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ReturnDate));
-            HomePage.ReturnDate.clear();
-            HomePage.ReturnDate.sendKeys(newDate2);
-            System.out.println(" RT selected ");
-        }
-
-        Thread.sleep(1000);
         //Submit Button go from Home Page to Flight Page
         HomePage.Submit.submit();
 
@@ -212,7 +252,7 @@ public class Upsell extends MainTest{
         try {
             wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
         } catch (Exception e) {
-            System.out.println("Too long time of booker loading on step 2- flights : " + e.getMessage());
+            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : " + e.getMessage());
         }
 
         //Popup handle
@@ -234,45 +274,21 @@ public class Upsell extends MainTest{
 
         //Selecting First ACTIVE Ticket TO
 
-        if(FlightsPage.FirstTO.isDisplayed())
-        {
+        try {
             FlightsPage.FirstTO.click();
-            //wait.until(ExpectedConditions.visibilityOf(FlightsPage.UpsellTOCost));
-            //String UpsellCost = FlightsPage.UpsellTOCost.getAttribute("value");
-            //System.out.println("UpsellCost: "+UpsellCost);
-
-            //Integer Upsell = Integer.valueOf(UpsellCost) - Integer.valueOf(CostTo);
-            //System.out.println("UPSELL: "+Upsell);
-
-        } else if (FlightsPage.FirstTO1.isDisplayed()) {
-            System.out.println("Local flight tickets " );
+        } catch (Exception e) {
+            System.out.println("Other tickets : " + e.getMessage());
             FlightsPage.FirstTO1.click();
         }
 
-        //Upsell
-        String CostTo = FlightsPage.FirstTOCost.getText();
-        System.out.println("FirstTOCost: "+CostTo);
-
-
+        //Selecting First ACTIVE Ticket BACK
         Thread.sleep(1000);
-        if (SL == 0) {
-            System.out.println("OW Flight ");
-        } else {
-            //Selecting First ACTIVE Ticket BACK
-            Thread.sleep(1000);
-            try {
-                FlightsPage.FirstBack.click();
-            } catch (Exception e) {
-                System.out.println("Selecting First ACTIVE Ticket BACK : " + e.getMessage());
-                FlightsPage.FirstBack2.click();
-            }
+        try {
+            FlightsPage.FirstBack.click();
+        } catch (Exception e) {
+            System.out.println("Other tickets : " + e.getMessage());
+            FlightsPage.FirstBack2.click();
         }
-
-        //Upsell
-        String CostBack = FlightsPage.FirstBackCost.getAttribute("value").replaceAll("[\\s+]","");;
-        System.out.println("FirstBackCost: "+CostBack);
-
-
         Thread.sleep(1000);
         //Button Continue
         try {
@@ -285,34 +301,23 @@ public class Upsell extends MainTest{
             System.out.println("Accepted the alert successfully.");
             System.out.println("No Element Continue : " + e.getMessage());
         }
-
         // Passengers Page
-
-        wait.until(ExpectedConditions.elementToBeClickable(FlightsPage.NoThanks));
+        Thread.sleep(1000);
 
         //Upsell Popup
-        Assert.assertTrue(FlightsPage.NoThanks.isDisplayed(),"No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
-        String Price =FlightsPage.UpsellPrice.getText().replaceAll("[A-Za-z\\.\\s+]","");
-        System.out.println("Popup Price1: "+Price);
-        String Price2 =Price.replaceAll(",",".");
-        System.out.println("Popup Price2: "+Price2);
-
-        Thread.sleep(4000);
-        //Upsell
-        String UpsellTOCost = FlightsPage.UpsellTOCost.getAttribute("value").replaceAll("[^0-9?!\\.]","");
-
-        System.out.println("UpsellTOCost : "+UpsellTOCost);
-        String UpsellBackCost = FlightsPage.UpsellBackCost.getAttribute("value").replaceAll("[\\s+]","");
-
-        System.out.println("UpsellBackCost : "+UpsellBackCost);
-
-        /*
+        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        try {
+            FlightsPage.NoThanks.click();
+        } catch (Exception e) {
+            System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
+        }
 
         //Selecting title
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
         PassengersPage.Title.click();
         Select title = new Select(PassengersPage.Title);
         title.selectByIndex(1);
+
         //Selecting title
 
         //Enter Name and Surname
@@ -345,11 +350,9 @@ public class Upsell extends MainTest{
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.CheckboxAccept));
         PassengersPage.CheckboxAccept.click();
 
-
         //Waiting and Clicking on Big Continue Button. Next try to Click Accept User Data Popup.
         wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.BigContinue));
         PassengersPage.BigContinue.click();
-        Thread.sleep(1000);
         try {
             PassengersPage.PopupAccept.click();
         } catch (Exception e) {
@@ -410,14 +413,22 @@ public class Upsell extends MainTest{
         //DropdownLists
         //Credit Card
 
-*/
+        //Waiting and Clicking on Big Continue Button.
+        try {
+            wait.until(ExpectedConditions.visibilityOf(PaymentPage.BigContinue));
+            PaymentPage.BigContinue.click();
+        } catch (Exception e) {
+            System.out.println("Problem with Continue button : " + e.getMessage());
+        }
+        //END OF TEST
+        */
     }
 
     //Excel configuration
     @DataProvider(name ="data")
     public Object[][] passData()
     {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\upsell.xlsx");
+        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\LOT.xlsx");
         int rows = config.getRowCount(0);
         Object[][] data=new Object[rows][5];
 
@@ -433,8 +444,8 @@ public class Upsell extends MainTest{
 
     @AfterTest(alwaysRun = true)
     public void tearDown1() throws Exception {
-        driver.manage().deleteAllCookies();
-        driver.quit();
+        //driver.manage().deleteAllCookies();
+        //driver.quit();
     }
 
 }
