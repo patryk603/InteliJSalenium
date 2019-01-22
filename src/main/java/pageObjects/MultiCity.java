@@ -54,9 +54,12 @@ public class MultiCity {
     @FindBy(id = "departureDateMulti_3")
     public static WebElement DepartureDate4;
 
-
     @FindBy(id = "multiAdd")
     public static WebElement MultiAdd;
+
+    @FindBy(css = "#flightBookingForm > div:nth-child(7) > div:nth-child(2) > div > button")
+    public static WebElement Search;
+
 
     public MultiCity(WebDriver driver){
 

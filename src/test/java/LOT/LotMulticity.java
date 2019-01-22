@@ -6,6 +6,7 @@ import Main.MainTest;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -143,10 +144,12 @@ public class LotMulticity extends MainTest{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        HomePage.CoockiesFooter.click();
+        //Close cookies
+        Boolean isPresent = driver.findElements(By.cssSelector("span.g-font-1.small-hide")).size() > 0;
+        if (isPresent==true){HomePage.CoockiesFooter.click();}
+
         HomePage.NextHP.click();
         HomePage.MultiCity.click();
-
 
         //Selecting From1 Flight
         //wait.until(ExpectedConditions.elementToBeClickable(MultiCity.From1));
@@ -211,6 +214,10 @@ public class LotMulticity extends MainTest{
         //Selecting Flight4 Data
         MultiCity.DepartureDate4.clear();
         MultiCity.DepartureDate4.sendKeys(newDate);
+        driver.findElement(By.cssSelector("#flightBookingForm > div:nth-child(7) > div:nth-child(1)")).click();
+
+        //Click Search Flights
+        MultiCity.Search.click();
 
         /*
         Thread.sleep(1000);

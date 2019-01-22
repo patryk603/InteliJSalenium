@@ -25,10 +25,8 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class LotBiletyAll extends MainTest{
-    private String baseUrl;
-    private boolean acceptNextAlert = true;
-    private StringBuffer verificationErrors = new StringBuffer();
 
+    private String baseUrl;
     //All Static Data
     String name = "Test";
     String surname = "Test";
