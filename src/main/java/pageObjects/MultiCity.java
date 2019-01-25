@@ -15,6 +15,9 @@ public class MultiCity {
     @FindBy(css = ".select2-search__field")
     public static WebElement DDL;
 
+    @FindBy(css = "#lot > span > span > span.select2-results")
+    public static WebElement List;
+
     @FindBy(css = "#select2-departureAirportMulti_0-container > span")
     public static WebElement From1;
 
@@ -59,6 +62,19 @@ public class MultiCity {
 
     @FindBy(css = "#flightBookingForm > div:nth-child(7) > div:nth-child(2) > div > button")
     public static WebElement Search;
+
+    @FindBy(css = "#destinationAirportMulti_0-listener > span.select2-selection__arrow")
+    public static WebElement DestArrow1;
+
+    @FindBy(css = "#destinationAirportMulti_1-listener > span.select2-selection__arrow")
+    public static WebElement DestArrow2;
+
+    @FindBy(css = "#destinationAirportMulti_2-listener > span.select2-selection__arrow")
+    public static WebElement DestArrow3;
+
+    @FindBy(css = "#destinationAirportMulti_3-listener > span.select2-selection__arrow")
+    public static WebElement DestArrow4;
+
 
 
     public MultiCity(WebDriver driver){

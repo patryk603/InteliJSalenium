@@ -62,7 +62,29 @@ public class FlightsPage {
     @FindBy(css = "#loadingDetailsUpsell > div.modal-upsell-footer > div.modal-upsell-footer-buttons > button.btn.nr-btn__next-step")
     public static WebElement YesThanks;
 
+    @FindBy(css = "#VAB__flights__list-0 > li:nth-child(1) > div > div.MULTI__flight__wrapper-input > div")
+    public static WebElement Multi1;
 
+    @FindBy(css = "#VAB__flights__list-1 > li:nth-child(1) > div > div.MULTI__flight__wrapper-input > div")
+    public static WebElement Multi2;
+
+    @FindBy(css = "#VAB__flights__list-2 > li:nth-child(1) > div > div.MULTI__flight__wrapper-input > div")
+    public static WebElement Multi3;
+
+    @FindBy(css = "#VAB__flights__list-3 > li:nth-child(1) > div > div.MULTI__flight__wrapper-input > div")
+    public static WebElement Multi4;
+
+    @FindBy(css = "#_shoppingcartportlet_WAR_lotairwaysportlet_shoppingcart-data-flights > div:nth-child(1)")
+    public static WebElement BacketTicket1;
+
+    @FindBy(css = "#_shoppingcartportlet_WAR_lotairwaysportlet_shoppingcart-data-flights > div:nth-child(2)")
+    public static WebElement BacketTicket2;
+
+    @FindBy(css = "#_shoppingcartportlet_WAR_lotairwaysportlet_shoppingcart-data-flights > div:nth-child(3)")
+    public static WebElement BacketTicket3;
+
+    @FindBy(css = "#_shoppingcartportlet_WAR_lotairwaysportlet_shoppingcart-data-flights > div:nth-child(4)")
+    public static WebElement BacketTicket4;
 
     public FlightsPage(WebDriver driver){
 

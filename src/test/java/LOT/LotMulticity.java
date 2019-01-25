@@ -1,11 +1,14 @@
 package LOT;
 
 import DDT.ExcelDataConfig;
-import Main.GetScreenshot;
-import Main.MainTest;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
+import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptExecutor;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -25,7 +28,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class LotMulticity extends MainTest{
+import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.*;
+
+public class LotMulticity {
+    public static WebDriver driver;
     private String baseUrl;
 
     //All Static Data
@@ -52,9 +60,8 @@ public class LotMulticity extends MainTest{
         driver = new ChromeDriver();
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
+        WebDriverRunner.setWebDriver(driver);
         baseUrl = "http://www.lot.com/";
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
         PageFactory.initElements(driver, HomePage.class);
         PageFactory.initElements(driver, MultiCity.class);
         PageFactory.initElements(driver, FlightsPage.class);
@@ -65,21 +72,28 @@ public class LotMulticity extends MainTest{
 
 
     @Test(dataProvider = "data",groups=("BuyTickets"))
-    public void Multicity(String localization, String from, String to, XSSFCell departuredata, XSSFCell returndata) throws Exception {
+    public void Multicity(String localization, String from1, String to1, String from2, String to2, String from3, String to3,String from4, String to4, XSSFCell departuredata1, XSSFCell returndata1,XSSFCell departuredata2, XSSFCell returndata2) throws Exception {
 
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        driver.get(baseUrl + localization);
-        ImplicitWait(driver);
+        open(baseUrl + localization);
 
         //TIME Configuration
-        String dat1 = String.valueOf(departuredata);
+        String dat1 = String.valueOf(departuredata1);
         if (dat1.length() > 0) {
             dat1 = dat1.substring(0, (dat1.length() - 2));
         }
 
-        String dat2 = String.valueOf(returndata);
+        String dat2 = String.valueOf(returndata1);
         if (dat2.length() > 0) {
             dat2 = dat2.substring(0, (dat2.length() - 2));
+        }
+        String dat3 = String.valueOf(departuredata2);
+        if (dat3.length() > 0) {
+            dat3 = dat3.substring(0, (dat3.length() - 2));
+        }
+
+        String dat4 = String.valueOf(returndata2);
+        if (dat4.length() > 0) {
+            dat4 = dat4.substring(0, (dat4.length() - 2));
         }
 
         //Data Formats
@@ -105,6 +119,8 @@ public class LotMulticity extends MainTest{
 
         Calendar c = Calendar.getInstance();
         Calendar b = Calendar.getInstance();
+        Calendar d = Calendar.getInstance();
+        Calendar f = Calendar.getInstance();
         try {
             //Setting the date to the given date
             c.setTime(sdf.parse(timeStamp));
@@ -117,150 +133,138 @@ public class LotMulticity extends MainTest{
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        try {
+            //Setting the date to the given date
+            d.setTime(sdf.parse(timeStamp));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            //Setting the date to the given date
+            f.setTime(sdf.parse(timeStamp));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         //Number of Days to add
         c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat1)));
         b.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat2)));
+        d.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat3)));
+        f.add(Calendar.DAY_OF_MONTH, Integer.parseInt(String.valueOf(dat4)));
 
         //Date after adding the days to the given date
         String newDate = sdf.format(c.getTime());
         String newDate2 = sdf.format(b.getTime());
+        String newDate3 = sdf.format(d.getTime());
+        String newDate4 = sdf.format(f.getTime());
 
         //Displaying the new Date after addition of Days
-        System.out.println("Data wylotu: " + newDate);
-        System.out.println("Data powrotu: " + newDate2);
+        System.out.println("Data lotu1: " + newDate);
+        System.out.println("Data lotu2: " + newDate2);
+        System.out.println("Data lotu3: " + newDate3);
+        System.out.println("Data lotu4: " + newDate4);
         //TIME
 
         //TEST START
         String start = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        System.out.println("Lokalizacja: "+localization+" | Lot z: " +from+ " | Lot do: "+to+" | Data wylotu: "+newDate+" | Data powrotu: "+newDate2+"  Start testu: "+start);
+        System.out.println("Lokalizacja: "+localization+" | Lot z: " +from1+ " | Lot do: "+to1+" | Data lotu1: "+newDate+" | Data lotu2: "+newDate2+" | Data lotu3: "+newDate3+" | Data lotu4: "+newDate4+"  Start testu: "+start);
 
         //JSESSION ID
         Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
         System.out.println("HomePage JSESSIONID: "+cookie.getValue());
 
         //Take screenshot
-        try {
-            GetScreenshot.capture("HomePage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenshot("HomePage " + localization + from1 + to1 + departuredata1 + returndata1);
         //Close cookies
         Boolean isPresent = driver.findElements(By.cssSelector("span.g-font-1.small-hide")).size() > 0;
         if (isPresent==true){HomePage.CoockiesFooter.click();}
 
-        HomePage.NextHP.click();
-        HomePage.MultiCity.click();
-
+        $(HomePage.NextHP).click();
+        $(HomePage.MultiCity).click();
         //Selecting From1 Flight
-        //wait.until(ExpectedConditions.elementToBeClickable(MultiCity.From1));
-        MultiCity.From1.click();
-        wait.until(ExpectedConditions.elementToBeClickable(MultiCity.DDL));
-        MultiCity.DDL.sendKeys(from);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
+        $(MultiCity.From1).shouldBe(visible);
+        $(MultiCity.From1).click();
+        $(MultiCity.DDL).shouldBe(visible);
+        $(MultiCity.DDL).sendKeys(from1);
+        $(MultiCity.List).shouldBe(visible);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+from1+"]"))).click();
+
         //Selecting To1 Flight
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
-        MultiCity.Text.sendKeys(to);
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
-        //Thread.sleep(10000);
+        try {
+            $(MultiCity.DestArrow1).shouldBe(visible);
+            $(MultiCity.DestArrow1).click();
+            $(MultiCity.DestArrow1).click();
+            $(MultiCity.Text).shouldBe(visible);
+            $(MultiCity.Text).sendKeys(to1);
+            $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to1+"]"))).click();
+        } catch (Exception e) {
+            $(MultiCity.DestArrow1).click();
+            $(MultiCity.Text).sendKeys(to1);
+            $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*="+to1+"]"))).click();
+        }
+
         //Selecting Flight1 Data
-        MultiCity.DepartureDate1.clear();
-        MultiCity.DepartureDate1.sendKeys(newDate);
+        $(MultiCity.DepartureDate1).clear();
+        $(MultiCity.DepartureDate1).sendKeys(newDate);
 
         //Add flight
-        MultiCity.MultiAdd.click();
+        $(MultiCity.MultiAdd).click();
 
         //Selecting From2 Flight
-        MultiCity.From2.click();
-        wait.until(ExpectedConditions.elementToBeClickable(MultiCity.DDL));
-        MultiCity.DDL.sendKeys(from);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
+        $(MultiCity.From2).click();
+        $(MultiCity.DDL).shouldBe(visible);
+        $(MultiCity.DDL).sendKeys(from2);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from2 + "]"))).shouldBe(visible);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from2 + "]"))).click();
         //Selecting To2 Flight
-        MultiCity.Text.sendKeys(to);
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
+        $(MultiCity.DestArrow2).click();
+        $(MultiCity.Text).sendKeys(to2);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to2 + "]"))).click();
         //Selecting Flight2 Data
-        MultiCity.DepartureDate2.clear();
-        MultiCity.DepartureDate2.sendKeys(newDate);
+        $(MultiCity.DepartureDate2).clear();
+        $(MultiCity.DepartureDate2).sendKeys(newDate2);
 
         //Add flight
-        MultiCity.MultiAdd.click();
+        $(MultiCity.MultiAdd).click();
 
         //Selecting From3 Flight
-        MultiCity.From3.click();
-        wait.until(ExpectedConditions.elementToBeClickable(MultiCity.DDL));
-        MultiCity.DDL.sendKeys(from);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
+        $(MultiCity.From3).click();
+        $(MultiCity.DDL).shouldBe(visible);
+        $(MultiCity.DDL).sendKeys(from3);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from3 + "]"))).shouldBe(visible);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from3 + "]"))).click();
         //Selecting To3 Flight
-        MultiCity.Text.sendKeys(to);
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
+        $(MultiCity.DestArrow3).click();
+        $(MultiCity.Text).sendKeys(to3);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to3 + "]"))).shouldBe(visible);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to3 + "]"))).click();
         //Selecting Flight3 Data
-        MultiCity.DepartureDate3.clear();
-        MultiCity.DepartureDate3.sendKeys(newDate);
+        $(MultiCity.DepartureDate3).clear();
+        $(MultiCity.DepartureDate3).sendKeys(newDate3);
 
         //Add flight
-        MultiCity.MultiAdd.click();
+        $(MultiCity.MultiAdd).click();
 
         //Selecting From4 Flight
-        MultiCity.From4.click();
-        wait.until(ExpectedConditions.elementToBeClickable(MultiCity.DDL));
-        MultiCity.DDL.sendKeys(from);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")));
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
+        $(MultiCity.From4).click();
+        $(MultiCity.DDL).shouldBe(visible);
+        $(MultiCity.DDL).sendKeys(from4);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from4 + "]"))).shouldBe(visible);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from4 + "]"))).click();
         //Selecting To4 Flight
-        MultiCity.Text.sendKeys(to);
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
+        $(MultiCity.DestArrow4).click();
+        $(MultiCity.Text).sendKeys(to4);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to4 + "]"))).shouldBe(visible);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to4 + "]"))).click();
         //Selecting Flight4 Data
-        MultiCity.DepartureDate4.clear();
-        MultiCity.DepartureDate4.sendKeys(newDate);
-        driver.findElement(By.cssSelector("#flightBookingForm > div:nth-child(7) > div:nth-child(1)")).click();
+        $(MultiCity.DepartureDate4).clear();
+        $(MultiCity.DepartureDate4).sendKeys(newDate4);
+        $(driver.findElement(By.cssSelector("#flightBookingForm > div:nth-child(7) > div:nth-child(1)"))).click();
 
         //Click Search Flights
-        MultiCity.Search.click();
-
-        /*
-        Thread.sleep(1000);
-
-        //Selecting To Flight
-        try {
-            //wait.until(ExpectedConditions.elementToBeClickable(HomePagePRE2.ToList));
-            //HomePagePRE2.ToList.click();
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
-            HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
-        } catch (Exception e) {
-            System.out.println("Need additional click : " + e.getMessage());
-            HomePage.Lot.click();
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToList));
-            HomePage.ToList.click();
-            wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
-            HomePage.ToToText.sendKeys(to);
-            driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
-        }
-
-
-        //Click on home page
-        HomePage.Lot.click();
-
-        //Selecting Departure Data
-        HomePage.DepartureDate.clear();
-        HomePage.DepartureDate.sendKeys(newDate);
-
-        //Selecting Return Date
-        HomePage.ReturnDate.clear();
-        HomePage.ReturnDate.sendKeys(newDate2);
-        HomePage.Lot.click();
-
-        //Submit Button go from Home Page to Flight Page
-        HomePage.Submit.submit();
+        $(MultiCity.Search).click();
 
         //FlightPage
-        try {
-            wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
-        } catch (Exception e) {
-            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : " + e.getMessage());
-        }
+        //$(FlightsPage.Cart).waitUntil(visible,20000);
 
         //Popup handle
         try {
@@ -273,63 +277,66 @@ public class LotMulticity extends MainTest{
         Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
         System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
         //Take screenshot
-        try {
-            GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenshot("FlightPage " + localization + from1 + to1 + departuredata1 + returndata1);
 
-        //Selecting First ACTIVE Ticket TO
+        //Selecting First ACTIVE Tickets
+        $(FlightsPage.Multi1).scrollTo();
+        $(FlightsPage.Multi1).click();
+        $(FlightsPage.BacketTicket1).shouldBe(visible);
+        $(FlightsPage.Multi2).scrollTo();
+        $(FlightsPage.Multi2).click();
+        $(FlightsPage.Multi2).click();
+        $(FlightsPage.Multi2).click();
+        $(FlightsPage.BacketTicket2).shouldBe(visible);
+        $(FlightsPage.Multi3).scrollTo();
+        $(FlightsPage.Multi3).click();
+        $(FlightsPage.BacketTicket3).shouldBe(visible);
+        $(FlightsPage.Multi4).scrollTo();
+        $(FlightsPage.Multi4).click();
+        $(FlightsPage.BacketTicket4).shouldBe(visible);
 
-        try {
-            FlightsPage.FirstTO.click();
-        } catch (Exception e) {
-            System.out.println("Other tickets : " + e.getMessage());
-            FlightsPage.FirstTO1.click();
-        }
-
-        //Selecting First ACTIVE Ticket BACK
-        Thread.sleep(1000);
-        try {
-            FlightsPage.FirstBack.click();
-        } catch (Exception e) {
-            System.out.println("Other tickets : " + e.getMessage());
-            FlightsPage.FirstBack2.click();
-        }
-        Thread.sleep(1000);
         //Button Continue
+
         try {
-            wait.until(ExpectedConditions.visibilityOf(FlightsPage.BigContinue));
-            FlightsPage.BigContinue.click();
+            $(FlightsPage.BigContinue).shouldBe(visible);
+            $(FlightsPage.BigContinue).click();
         } catch (Exception e) {
-            FlightsPage.Popup.click();
-            Thread.sleep(1000);
-            FlightsPage.BigContinue.click();
+            $(FlightsPage.Popup).shouldBe(visible);
+            $(FlightsPage.Popup).click();
+            $(FlightsPage.BigContinue).click();
+            System.out.println("Accepted the alert successfully.");
+            System.out.println("No Element Continue : " + e.getMessage());
+        }
+        try {
+            $(FlightsPage.BigContinue).shouldBe(visible);
+            $(FlightsPage.BigContinue).click();
+        } catch (Exception e) {
+            $(FlightsPage.Popup).shouldBe(visible);
+            $(FlightsPage.Popup).click();
+            $(FlightsPage.BigContinue).click();
             System.out.println("Accepted the alert successfully.");
             System.out.println("No Element Continue : " + e.getMessage());
         }
         // Passengers Page
-        Thread.sleep(1000);
 
         //Upsell Popup
-        GetScreenshot.capture("Upsell/"+from+"/"+to);
+        screenshot("Upsell/"+from1+"/"+to1);
         try {
             FlightsPage.NoThanks.click();
         } catch (Exception e) {
-            System.out.println("No Upsell for: " + localization +"/"+ from+"/"+ to +"/"+ departuredata +"/"+ returndata);
+            screenshot("No Upsell for: " + localization +"/"+ from1+"/"+ to1 +"/"+ departuredata1 +"/"+ returndata1);
+            System.out.println("No Upsell for: " + localization +"/"+ from1+"/"+ to1 +"/"+ departuredata1 +"/"+ returndata1);
         }
 
         //Selecting title
-        wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.Title));
-        PassengersPage.Title.click();
+        $(PassengersPage.Title).shouldBe(visible);
+        $(PassengersPage.Title).click();
         Select title = new Select(PassengersPage.Title);
         title.selectByIndex(1);
 
-        //Selecting title
-
         //Enter Name and Surname
-        PassengersPage.FirstName.sendKeys(name);
-        PassengersPage.Surname.sendKeys(surname);
+        $(PassengersPage.FirstName).sendKeys(name);
+        $(PassengersPage.Surname).sendKeys(surname);
 
         //DATE OF BIRTH
         try {
@@ -350,16 +357,16 @@ public class LotMulticity extends MainTest{
         //DATE OF BIRTH
 
         //Passengers data: Email Phone
-        PassengersPage.Email.sendKeys(email);
-        PassengersPage.Phone.sendKeys(phone);
+        $(PassengersPage.Email).sendKeys(email);
+        $(PassengersPage.Phone).sendKeys(phone);
 
         //Waiting and Clicking on "I have read and I accept Terms of Use, Privacy Policy and Terms and Conditions of Transportation (Excerpt from clause) *"
-        wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.CheckboxAccept));
-        PassengersPage.CheckboxAccept.click();
+        $(PassengersPage.CheckboxAccept).shouldBe(visible);
+        $(PassengersPage.CheckboxAccept).click();
 
         //Waiting and Clicking on Big Continue Button. Next try to Click Accept User Data Popup.
-        wait.until(ExpectedConditions.elementToBeClickable(PassengersPage.BigContinue));
-        PassengersPage.BigContinue.click();
+        $(PassengersPage.BigContinue).shouldBe(visible);
+        $(PassengersPage.BigContinue).click();
         try {
             PassengersPage.PopupAccept.click();
         } catch (Exception e) {
@@ -368,91 +375,81 @@ public class LotMulticity extends MainTest{
 
         //Extra Page
         //Take screenshot
-        wait.until(ExpectedConditions.visibilityOf(ExtrasPage.Column1));
-        try {
-            GetScreenshot.capture("ExtraPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        $(ExtrasPage.Column1).shouldBe(visible);
+        screenshot("ExtraPage " + localization + from1 + to1 + departuredata1 + returndata1);
         //Waiting and Clicking on Big Continue Button.
-        try {
-            wait.until(ExpectedConditions.visibilityOf(ExtrasPage.BigContinue));
-            ExtrasPage.BigContinue.click();
-        } catch (Exception e) {
-            System.out.println("No Element Continue : " + e.getMessage());
-        }
-        //Extra Page
+        $(ExtrasPage.BigContinue).shouldBe(visible);
+        $(ExtrasPage.BigContinue).click();
 
         //Payment Page
-        wait.until(ExpectedConditions.visibilityOf(PaymentPage.BookNr));
-        try {
-            GetScreenshot.capture("PaymentPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        $(PaymentPage.BookNr).shouldBe(visible);
+        screenshot("PaymentPage " + localization + from1 + to1 + departuredata1 + returndata1);
 
         //BookingNumber
-        String BookNumber = PaymentPage.BookNr.getText();
+        String BookNumber = $(PaymentPage.BookNr).getText();
         System.out.println(BookNumber);
         //BookingNumber
 
         //Credit Card Data
-        PaymentPage.CardNr.sendKeys(creditcard);
-        PaymentPage.Cvc.sendKeys(cvv);
-        PaymentPage.Name.sendKeys(name);
-        PaymentPage.City.sendKeys(city);
-        PaymentPage.PostalCode.sendKeys(zipcode);
-        PaymentPage.Street.sendKeys(street);
+        $(PaymentPage.CardNr).sendKeys(creditcard);
+        $(PaymentPage.Cvc).sendKeys(cvv);
+        $(PaymentPage.Name).sendKeys(name);
+        $(PaymentPage.City).sendKeys(city);
+        $(PaymentPage.PostalCode).sendKeys(zipcode);
+        $(PaymentPage.Street).sendKeys(street);
 
         //DropdownLists
-        PaymentPage.Month.click();
+        $(PaymentPage.Month).click();
         Select mounth = new Select(PaymentPage.Month);
         mounth.selectByVisibleText(Month);
 
-        PaymentPage.Year.click();
+        $(PaymentPage.Year).click();
         Select cardyear = new Select(PaymentPage.Year);
         cardyear.selectByVisibleText(Year);
 
-        PaymentPage.Country.click();
+        $(PaymentPage.Country).click();
         Select country = new Select(PaymentPage.Country);
         country.selectByIndex(167);
-        PaymentPage.Lot.click();
+        $(PaymentPage.Lot).click();
         //DropdownLists
         //Credit Card
 
         //Waiting and Clicking on Big Continue Button.
-        try {
-            wait.until(ExpectedConditions.visibilityOf(PaymentPage.BigContinue));
-            PaymentPage.BigContinue.click();
-        } catch (Exception e) {
-            System.out.println("Problem with Continue button : " + e.getMessage());
-        }
+        $(PaymentPage.BigContinue).shouldBe(visible);
+        $(PaymentPage.BigContinue).click();
         //END OF TEST
-        */
     }
 
     //Excel configuration
     @DataProvider(name ="data")
     public Object[][] passData()
     {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\LOT.xlsx");
+        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\Multicity.xlsx");
         int rows = config.getRowCount(0);
-        Object[][] data=new Object[rows][5];
+        Object[][] data=new Object[rows][13];
 
         for(int i=0;i<rows;i++){
             data[i][0]=config.getData(0,i,0);
             data[i][1]=config.getData(0,i,1);
             data[i][2]=config.getData(0,i,2);
-            data[i][3]=config.getNumber(0,i,3);
-            data[i][4]=config.getNumber(0,i,4);
+            data[i][3]=config.getData(0,i,3);
+            data[i][4]=config.getData(0,i,4);
+            data[i][5]=config.getData(0,i,5);
+            data[i][6]=config.getData(0,i,6);
+            data[i][7]=config.getData(0,i,7);
+            data[i][8]=config.getData(0,i,8);
+            data[i][9]=config.getNumber(0,i,9);
+            data[i][10]=config.getNumber(0,i,10);
+            data[i][11]=config.getNumber(0,i,11);
+            data[i][12]=config.getNumber(0,i,12);
         }
         return data;
     }
 
     @AfterTest(alwaysRun = true)
     public void tearDown1() throws Exception {
-        //driver.manage().deleteAllCookies();
-        //driver.quit();
+        driver.manage().deleteAllCookies();
+        driver.quit();
     }
 
 }

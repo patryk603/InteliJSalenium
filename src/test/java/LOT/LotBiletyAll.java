@@ -156,8 +156,6 @@ public class LotBiletyAll extends MainTest{
 
         //Selecting To Flight
         try {
-            //wait.until(ExpectedConditions.elementToBeClickable(HomePagePRE2.ToList));
-            //HomePagePRE2.ToList.click();
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
             driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
