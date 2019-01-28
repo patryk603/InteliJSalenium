@@ -320,11 +320,9 @@ public class LotMulticity {
         // Passengers Page
 
         //Upsell Popup
-        screenshot("Upsell/"+from1+"/"+to1);
         try {
             FlightsPage.NoThanks.click();
         } catch (Exception e) {
-            screenshot("No Upsell for: " + localization +"/"+ from1+"/"+ to1 +"/"+ departuredata1 +"/"+ returndata1);
             System.out.println("No Upsell for: " + localization +"/"+ from1+"/"+ to1 +"/"+ departuredata1 +"/"+ returndata1);
         }
 
