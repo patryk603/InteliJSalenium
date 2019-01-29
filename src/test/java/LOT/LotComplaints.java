@@ -8,8 +8,11 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -46,18 +49,22 @@ public class LotComplaints {
 
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
+        baseUrl = "https://www.lot.com/pl/pl/reklamacje-pasazerskie-po-podrozy";
+    }
+
+
+    @Test(invocationCount =2)
+    public void Complaints(ITestContext testContext) throws Exception {
+
         driver = new ChromeDriver();
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
         WebDriverRunner.setWebDriver(driver);
-        baseUrl = "https://www.lot.com/pl/pl/reklamacje-pasazerskie-po-podrozy";
         PageFactory.initElements(driver, HomePage.class);
         PageFactory.initElements(driver, Complaints.class);
-    }
 
-
-    @Test(groups=("BuyTickets"))
-    public void Complaints() throws Exception {
+        int currentCount = testContext.getAllTestMethods()[0].getCurrentInvocationCount();
+        System.out.println("Executing count: " + currentCount);
 
         open(baseUrl);
 
@@ -77,7 +84,7 @@ public class LotComplaints {
         $(Complaints.Country).click();
 
         //Select random country
-        List<WebElement> countrys = driver.findElements(By.id("country--ul-select-one-2"));
+        List<WebElement> countrys = driver.findElements(By.cssSelector("#country--ul-select-one-2 > li"));
         Random country = new Random();
         int randomBaggage = country.nextInt(countrys.size()); //Getting a random value that is between 0 and (list's size)-1
         countrys.get(randomBaggage).click(); //Clicking on the random item in the list.
@@ -100,9 +107,7 @@ public class LotComplaints {
         int randomDat = dat1.nextInt(dat.size()); //Getting a random value that is between 0 and (list's size)-1
         dat.get(randomDat).click(); //Clicking on the random item in the list.
 
-       // $(Complaints.Message).scrollTo();
-       // $(Complaints.Message).shouldBe(visible);
-        $(Complaints.Message).sendKeys(message);
+        $(Complaints.Message).sendKeys(message+"| Executing count: " + currentCount+ " |Run on Chrome");
 
         //Select random opinion
         $(Complaints.Opinion).click();
@@ -113,7 +118,90 @@ public class LotComplaints {
 
         $(Complaints.SendCopyToCustomer).click();
         $(Complaints.Rodo).click();
+/*
+        screenshot("SubmitComplaints");
+        $(Complaints.Submit).submit();
 
+        $(Complaints.SendConfirm).waitUntil(visible,10000);
+        screenshot("SendConfirmation");
+*/
+        //END OF TEST
+    }
+
+    @Test(invocationCount =2)
+    public void ComplaintsFF(ITestContext testContext) throws Exception {
+
+        driver = new FirefoxDriver();
+        driver.manage().deleteAllCookies();
+        driver.manage().window().maximize();
+        WebDriverRunner.setWebDriver(driver);
+        PageFactory.initElements(driver, HomePage.class);
+        PageFactory.initElements(driver, Complaints.class);
+
+        int currentCount = testContext.getAllTestMethods()[0].getCurrentInvocationCount();
+        System.out.println("Executing count: " + currentCount);
+
+        open(baseUrl);
+
+        //TEST START
+
+        //JSESSION ID
+        Cookie cookie= driver.manage().getCookieNamed("JSESSIONID");
+        System.out.println("JSESSIONID: "+cookie.getValue());
+
+        //Close cookies
+        Boolean isPresent = driver.findElements(By.cssSelector("span.g-font-1.small-hide")).size() > 0;
+        if (isPresent==true){HomePage.CoockiesFooter.click();}
+
+        $(Complaints.Name).shouldBe(visible);
+        $(Complaints.Name).sendKeys(testData);
+        $(Complaints.Surname).sendKeys(testData);
+        $(Complaints.Country).click();
+
+        //Select random country
+        List<WebElement> countrys = driver.findElements(By.cssSelector("#country--ul-select-one-2 > li"));
+        Random country = new Random();
+        int randomBaggage = country.nextInt(countrys.size()); //Getting a random value that is between 0 and (list's size)-1
+        countrys.get(randomBaggage).click(); //Clicking on the random item in the list.
+
+        $(Complaints.City).sendKeys(testData);
+        $(Complaints.ZipCode).sendKeys(zipcode);
+        $(Complaints.Street).sendKeys(street);
+        $(Complaints.StreetNumber).sendKeys("69");
+        $(Complaints.PhoneNumber).sendKeys(phone);
+        $(Complaints.Email).sendKeys(email);
+        $(Complaints.BookingNumber).sendKeys(bookingNumber);
+        $(Complaints.TicketNumber).sendKeys(ticketNumber);
+        $(Complaints.FlightNumber).sendKeys(flightNr);
+        $(Complaints.Route).sendKeys(testData);
+
+        //Select random data
+        $(Complaints.FlightDate).click();
+        List<WebElement> dat = driver.findElements(By.cssSelector("#ui-datepicker-div > table > tbody > tr > td:not([class*=\"disabled\"])"));
+        Random dat1 = new Random();
+        int randomDat = dat1.nextInt(dat.size()); //Getting a random value that is between 0 and (list's size)-1
+        dat.get(randomDat).click(); //Clicking on the random item in the list.
+
+        // $(Complaints.Message).scrollTo();
+        // $(Complaints.Message).shouldBe(visible);
+        $(Complaints.Message).sendKeys(message+"| Executing count: " + currentCount+ " |Run on Firefox");
+
+        //Select random opinion
+        $(Complaints.Opinion).click();
+        List<WebElement> opinion = driver.findElements(By.cssSelector("#opinionComplaintConcern--ul-select-one-2 > li"));
+        Random op1 = new Random();
+        int randomOpinion = op1.nextInt(opinion.size()); //Getting a random value that is between 0 and (list's size)-1
+        opinion.get(randomOpinion).click(); //Clicking on the random item in the list.
+
+        $(Complaints.SendCopyToCustomer).click();
+        $(Complaints.Rodo).click();
+/*
+        screenshot("SubmitComplaints");
+        $(Complaints.Submit).submit();
+
+        $(Complaints.SendConfirm).waitUntil(visible,10000);
+        screenshot("SendConfirmation");
+*/
         //END OF TEST
     }
 

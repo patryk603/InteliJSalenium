@@ -75,6 +75,12 @@ public class Complaints {
     @FindBy(id = "consent--span-checkbox-1")
     public static WebElement Rodo;
 
+    @FindBy(css = "input[type=\"submit\"]")
+    public static WebElement Submit;
+
+    @FindBy(css = "#content-container > div > div:nth-child(2) > div > div > div > div.b-column.eleven > div > h3")
+    public static WebElement SendConfirm;
+
 
 
 
