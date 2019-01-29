@@ -53,8 +53,8 @@ public class LotComplaints {
     }
 
 
-    @Test(invocationCount =2)
-    public void Complaints(ITestContext testContext) throws Exception {
+    @Test(groups = { "Complaints" },invocationCount =2)
+    public void ComplaintsChrome(ITestContext testContext) throws Exception {
 
         driver = new ChromeDriver();
         driver.manage().deleteAllCookies();
@@ -128,8 +128,8 @@ public class LotComplaints {
         //END OF TEST
     }
 
-    @Test(invocationCount =2)
-    public void ComplaintsFF(ITestContext testContext) throws Exception {
+    @Test(groups = { "Complaints" },invocationCount =2)
+    public void ComplaintsFireFox(ITestContext testContext) throws Exception {
 
         driver = new FirefoxDriver();
         driver.manage().deleteAllCookies();

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+  <suite name="LotComplaints" configfailurepolicy="continue">
+
+
+    <test name="LotMulticity">
+        <groups>
+            <run>
+                <include name="Complaints"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="LOT.LotComplaints"/>
+        </classes>
+    </test> <!-- LOTests -->
+</suite> <!-- Default Suite -->
