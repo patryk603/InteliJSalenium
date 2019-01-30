@@ -1,35 +1,27 @@
 package LOT;
 
-import DDT.ExcelDataConfig;
 import com.codeborne.selenide.WebDriverRunner;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pageObjects.*;
+import pageObjects.Complaints;
+import pageObjects.HomePage;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
-public class LotComplaints {
+public class LotComplaintsFF {
     public static WebDriver driver;
     private String baseUrl;
 
@@ -56,7 +48,7 @@ public class LotComplaints {
     @Test(groups = { "Complaints" },invocationCount =25)
     public void ComplaintsChrome(ITestContext testContext) throws Exception {
 
-        driver = new ChromeDriver();
+        driver = new FirefoxDriver();
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
         WebDriverRunner.setWebDriver(driver);
@@ -107,7 +99,7 @@ public class LotComplaints {
         int randomDat = dat1.nextInt(dat.size()); //Getting a random value that is between 0 and (list's size)-1
         dat.get(randomDat).click(); //Clicking on the random item in the list.
 
-        $(Complaints.Message).sendKeys(message+"| Executing count: " + currentCount+ " |Run on Chrome");
+        $(Complaints.Message).sendKeys(message+"| Executing count: " + currentCount+ " |Run on Firefox");
 
         //Select random opinion
         $(Complaints.Opinion).click();
@@ -120,12 +112,10 @@ public class LotComplaints {
         $(Complaints.Rodo).click();
 
         screenshot("SubmitComplaints"+currentCount);
-
         $(Complaints.Submit).submit();
 
         $(Complaints.SendConfirm).waitUntil(visible,10000);
         screenshot("SendConfirmation"+currentCount);
-
 
         //END OF TEST
     }
