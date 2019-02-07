@@ -47,6 +47,10 @@ public class PaymentPage {
     @FindBy(id = "lotBody")
     public static WebElement Lot;
 
+    //2019.01.30
+    @FindBy(css = "#_shoppingcartportlet_WAR_lotairwaysportlet_cart-total-price")
+    public static WebElement FinalPriceAfterDiscount;
+
     public PaymentPage(WebDriver driver){
 
         this.driver = driver;

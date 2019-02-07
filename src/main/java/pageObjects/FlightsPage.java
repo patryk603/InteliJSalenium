@@ -49,6 +49,9 @@ public class FlightsPage {
 
     @FindBy(css = "#modal-warning-description > div > button")
     public static WebElement OK;
+	
+	@FindBy(css = "#modal-warning-description > p")
+    public static WebElement OkPopUpText;
 
     @FindBy(css = "#modal-price-change-description > div > button")
     public static WebElement Popup;
@@ -85,6 +88,24 @@ public class FlightsPage {
 
     @FindBy(css = "#_shoppingcartportlet_WAR_lotairwaysportlet_shoppingcart-data-flights > div:nth-child(4)")
     public static WebElement BacketTicket4;
+
+    @FindBy(css = ".flights.VAB")
+    public static WebElement ShortFlight;
+	
+
+    @FindBy(css = "#modal-error-description > div > button")
+    public static WebElement NoLongerAvailable;
+
+    @FindBy(css = "#p_p_id_bookingportlet_WAR_lotairwaysportlet_INSTANCE_L74c6zSe1dMA_ > div > div > div > div > div > div:nth-child(4) > a")
+    public static WebElement FlightNotAvailable;
+
+    @FindBy(css = "#_shoppingcartportlet_WAR_lotairwaysportlet_cart-total-price")
+    public static WebElement BasketAfterDiscount;
+
+    @FindBy(css = "#_shoppingcartportlet_WAR_lotairwaysportlet_cart-total-priceDiscountCart")
+    public static WebElement BasketBeforeDiscount;
+
+
 
     public FlightsPage(WebDriver driver){
 

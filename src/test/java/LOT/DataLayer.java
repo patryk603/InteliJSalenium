@@ -77,14 +77,14 @@ public class DataLayer extends MainTest{
 
         //Data Formats
         String eutime = "dd.MM.yyyy";
-        String hutime = "yy.MM.dd";
+        String hutime = "yyyy.MM.dd";
         String ustime = "MM.dd.yyyy";
         String unify = "d.M.yy";
 
         String actualtime;
         if (market.contains("us")) {
             actualtime = ustime;
-        } else if (market.startsWith("hu/hu")) {
+        } else if ((market + language).startsWith("huhu")) {
             actualtime = hutime;
         } else {
             actualtime = eutime;

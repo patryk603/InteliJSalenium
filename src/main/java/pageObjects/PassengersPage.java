@@ -11,8 +11,11 @@ public class PassengersPage {
 
     final WebDriver driver;
 
-    @FindBy(css = ".custom-select:nth-child(2)>select[id$=title]")
+    @FindBy(css = "#_passengerdata_WAR_lotairwaysportlet_person_adult_1_title")
     public static WebElement Title;
+
+    @FindBy(css = "#_passengerdata_WAR_lotairwaysportlet_person_adult_2_title")
+    public static WebElement Title2;
 
     @FindBy(css = ".custom-select:nth-child(2)>select[id$=\"1_title\"]")
     public static WebElement TitleAdult1;
@@ -333,13 +336,14 @@ public class PassengersPage {
     @FindBy(css = ".checkbox>input[id$=\"termsUseCheckboxCheckbox\"]")
     public static WebElement CheckboxAccept;
 
+
     @FindBy(css = ".nr-cart--buttons>button")
     public static WebElement BigContinue;
 
     @FindBy(css = ".nr-cart--buttons--tablet>button")
     public static WebElement SmallContinue;
 
-    @FindBy(css = ".btn.btn-type3[onclick*=\"accept\"]")
+    @FindBy(css = "#_passengerdata_WAR_lotairwaysportlet_modal-passenger-details > div > div.modal-footer > div > button:nth-child(2)")
     public static WebElement PopupAccept;
 
     @FindBy(css = "#insuranceLoading > div:nth-child(1) > div.hidden-xs > table > tbody > tr.js-insuranceButtons.insuranceButtons > td.text-center")
@@ -347,6 +351,9 @@ public class PassengersPage {
 
     @FindBy(css = ".checkbox>input[id*=InsuranceCheckBoxCheckbox]")
     public static WebElement InsuranceCheckbox;
+
+    @FindBy(css = "#_passengerdata_WAR_lotairwaysportlet_person_adult_1_loyately_programme")
+    public static  WebElement LoyaltySelect;
 
 
 

@@ -46,7 +46,7 @@ public class LotComplaintsFF {
 
 
     @Test(groups = { "Complaints" },invocationCount =25)
-    public void ComplaintsChrome(ITestContext testContext) throws Exception {
+    public void ComplaintsFirefox(ITestContext testContext) throws Exception {
 
         driver = new FirefoxDriver();
         driver.manage().deleteAllCookies();

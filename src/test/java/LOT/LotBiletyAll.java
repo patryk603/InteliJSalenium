@@ -3,6 +3,7 @@ package LOT;
 import DDT.ExcelDataConfig;
 import Main.GetScreenshot;
 import Main.MainTest;
+import com.codeborne.selenide.WebDriverRunner;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
@@ -23,6 +24,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.screenshot;
 
 public class LotBiletyAll extends MainTest{
 
@@ -51,6 +57,7 @@ public class LotBiletyAll extends MainTest{
         driver = new ChromeDriver();
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
+        WebDriverRunner.setWebDriver(driver);
         baseUrl = "http://www.lot.com/";
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
@@ -137,24 +144,25 @@ public class LotBiletyAll extends MainTest{
         System.out.println("HomePage JSESSIONID: "+cookie.getValue());
 
         //Take screenshot
-        try {
-            GetScreenshot.capture("HomePage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenshot("HomePage " + localization + from + to + departuredata + returndata);
 
         //Selecting From Flight
-        wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));
-        HomePage.FromListButton.click();
+        $(HomePage.FromListButton).waitUntil(visible,15000);
+        $(HomePage.FromListButton).click();
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromToText));
-        HomePage.FromToText.sendKeys(from);
+        $(HomePage.FromToText).waitUntil(visible,5000);
+        $(HomePage.FromToText).sendKeys(from);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]"))).click();
 
-        driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + from + "]")).click();
-        //Click on home page
-
-        Thread.sleep(1000);
-
+        //Thread.sleep(1000);
         //Selecting To Flight
+        $(HomePage.Lot).click();
+        $(HomePage.ToList).click();
+        $(HomePage.ToToText).waitUntil(visible,3000);
+        $(HomePage.ToToText).sendKeys(to);
+        $(driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]"))).click();
+
+        /*
         try {
             wait.until(ExpectedConditions.elementToBeClickable(HomePage.ToToText));
             HomePage.ToToText.sendKeys(to);
@@ -168,29 +176,25 @@ public class LotBiletyAll extends MainTest{
             HomePage.ToToText.sendKeys(to);
             driver.findElement(By.cssSelector(".select2-results__options > li > ul > li[id*=" + to + "]")).click();
         }
-
+        */
 
         //Click on home page
-        HomePage.Lot.click();
+        $(HomePage.Lot).click();
 
         //Selecting Departure Data
-        HomePage.DepartureDate.clear();
-        HomePage.DepartureDate.sendKeys(newDate);
+        $(HomePage.DepartureDate).clear();
+        $(HomePage.DepartureDate).sendKeys(newDate);
 
         //Selecting Return Date
-        HomePage.ReturnDate.clear();
-        HomePage.ReturnDate.sendKeys(newDate2);
-        HomePage.Lot.click();
+        $(HomePage.ReturnDate).clear();
+        $(HomePage.ReturnDate).sendKeys(newDate2);
+        $(HomePage.Lot).click();
 
         //Submit Button go from Home Page to Flight Page
         HomePage.Submit.submit();
 
         //FlightPage
-        try {
-            wait.until(ExpectedConditions.visibilityOf(FlightsPage.Cart));
-        } catch (Exception e) {
-            System.out.println("Zbyt długi czas oczekiwania przejścia z bookera na step 2- flights : " + e.getMessage());
-        }
+        $(FlightsPage.Cart).waitUntil(visible,10000);
 
         //Popup handle
         try {
@@ -203,31 +207,40 @@ public class LotBiletyAll extends MainTest{
         Cookie cookie2= driver.manage().getCookieNamed("JSESSIONID");
         System.out.println("FlightPage JSESSIONID: "+cookie2.getValue());
         //Take screenshot
-        try {
-            GetScreenshot.capture("FlightPage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenshot("FlightPage " + localization + from + to + departuredata + returndata);
 
         //Selecting First ACTIVE Ticket TO
 
-        try {
-            FlightsPage.FirstTO.click();
-        } catch (Exception e) {
-            System.out.println("Other tickets : " + e.getMessage());
-            FlightsPage.FirstTO1.click();
+        if ($(FlightsPage.ShortFlight).isDisplayed()) {
+            System.out.println("ShortFlight tickets : ");
+            $(FlightsPage.FirstTO1).click();
+        }
+        else{
+            $(FlightsPage.FirstTO).click();
+            System.out.println("LongFlight tickets : ");
         }
 
         //Selecting First ACTIVE Ticket BACK
-        Thread.sleep(1000);
-        try {
-            FlightsPage.FirstBack.click();
-        } catch (Exception e) {
-            System.out.println("Other tickets : " + e.getMessage());
-            FlightsPage.FirstBack2.click();
+
+        if ($(FlightsPage.ShortFlight).isDisplayed()) {
+            $(FlightsPage.FirstBack2).click();
         }
-        Thread.sleep(1000);
+        else{
+            $(FlightsPage.FirstBack).click();
+        }
+
         //Button Continue
+
+        if ($(FlightsPage.Popup).isDisplayed()) {
+            $(FlightsPage.Popup).click();
+            $(FlightsPage.BigContinue).click();
+        }
+        else{
+            $(FlightsPage.FirstBack).click();
+            $(FlightsPage.BigContinue).click();
+        }
+
+        /*
         try {
             wait.until(ExpectedConditions.visibilityOf(FlightsPage.BigContinue));
             FlightsPage.BigContinue.click();
@@ -238,8 +251,20 @@ public class LotBiletyAll extends MainTest{
             System.out.println("Accepted the alert successfully.");
             System.out.println("No Element Continue : " + e.getMessage());
         }
+        */
+
         // Passengers Page
         Thread.sleep(1000);
+
+        if ($(FlightsPage.Popup).isDisplayed()) {
+            $(FlightsPage.Popup).click();
+            $(FlightsPage.BigContinue).click();
+        }
+        else{
+            $(FlightsPage.FirstBack).click();
+            $(FlightsPage.BigContinue).click();
+        }
+        /*
 
         //Upsell Popup
         GetScreenshot.capture("Upsell/"+from+"/"+to);
@@ -360,6 +385,7 @@ public class LotBiletyAll extends MainTest{
         }
         //END OF TEST
         driver.manage().deleteCookieNamed("JSESSIONID");
+        */
     }
 
     //Excel configuration
