@@ -264,7 +264,7 @@ public class LotBiletyAll extends MainTest{
             $(FlightsPage.FirstBack).click();
             $(FlightsPage.BigContinue).click();
         }
-        /*
+
 
         //Upsell Popup
         GetScreenshot.capture("Upsell/"+from+"/"+to);
@@ -385,14 +385,14 @@ public class LotBiletyAll extends MainTest{
         }
         //END OF TEST
         driver.manage().deleteCookieNamed("JSESSIONID");
-        */
+
     }
 
     //Excel configuration
     @DataProvider(name ="data")
     public Object[][] passData()
     {
-        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\LOT.xlsx");
+        ExcelDataConfig config = new ExcelDataConfig("C:\\Users\\Public\\LOT\\Short.xlsx");
         int rows = config.getRowCount(0);
         Object[][] data=new Object[rows][5];
 

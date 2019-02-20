@@ -19,6 +19,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
+
 
 public class LotBiletyTTT extends MainTest{
     private String baseUrl;
@@ -129,11 +132,7 @@ public class LotBiletyTTT extends MainTest{
         System.out.println("HomePage JSESSIONID: "+cookie.getValue());
 
         //Take screenshot
-        try {
-            GetScreenshot.capture("HomePage " + localization + from + to + departuredata + returndata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        screenshot("HomePage " + localization + from + to + departuredata + returndata);
 
         //Selecting From Flight
         wait.until(ExpectedConditions.elementToBeClickable(HomePage.FromListButton));

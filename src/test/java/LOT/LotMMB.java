@@ -2,6 +2,7 @@ package LOT;
 
 import DDT.ExcelDataConfig;
 import Main.MainTest;
+import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,6 +12,9 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import java.util.Objects;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.screenshot;
 import static org.testng.Assert.assertEquals;
 
 public class LotMMB extends MainTest {
@@ -23,6 +27,7 @@ public class LotMMB extends MainTest {
         driver = new ChromeDriver();
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
+        WebDriverRunner.setWebDriver(driver);
         baseUrl = "http://www.lot.com/";
         PageFactory.initElements(driver, MMBPage.class);
 
@@ -39,11 +44,11 @@ public class LotMMB extends MainTest {
 
         //TestStart
         //Enter Surname
-        WebElement surname = MMBPage.MMBLastName;
-        surname.sendKeys(lastname);
-        WebElement book = MMBPage.MMBBookingNumber;
-        book.sendKeys(bookinrexcel);
-        MMBPage.MMBSubmit.click();
+        $(MMBPage.MMBLastName).sendKeys(lastname);
+        $(MMBPage.MMBBookingNumber).sendKeys(bookinrexcel);
+        $(MMBPage.MMBSubmit).click();
+        screenshot(bookinrexcel+"DELETETHISFILE");
+
         //Waiting and Clicking on Big Continue Button.
         try {
             String bookingnr = driver.findElement(By.cssSelector(".confirmation-your-ticket-code strong")).getText();

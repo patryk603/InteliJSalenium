@@ -5,26 +5,21 @@ import Main.BasedTimeFunctions;
 import Main.Datas;
 import Main.GetScreenshot;
 import Main.MainTest;
+import com.codeborne.selenide.WebDriverRunner;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
-
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageObjects.*;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -47,6 +42,7 @@ public class LotPromoCode extends MainTest {
         driver = new ChromeDriver();
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
+        WebDriverRunner.setWebDriver(driver);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
         PageFactory.initElements(driver, HomePage.class);
@@ -56,7 +52,7 @@ public class LotPromoCode extends MainTest {
         PageFactory.initElements(driver, PaymentPage.class);
     }
 
-    @Test(dataProvider = "data", groups = "ButTickets")
+    @Test(dataProvider = "data", groups = "BuyTickets")
     public void LotPromoCode(String localization, String from, String to, XSSFCell departureData, XSSFCell returnData) throws Exception {
 
         $("http://www.lot.com/");
@@ -69,7 +65,7 @@ public class LotPromoCode extends MainTest {
          * */
 
         Thread.sleep(sleepTime);
-
+        screenshot("DUPA");
         //Select from flight
         $(HomePage.FromListButton).waitUntil(enabled, time).click();
         $(HomePage.FromToText).waitUntil(enabled, time).sendKeys(from);
